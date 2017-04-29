@@ -3,6 +3,7 @@ import bem from 'bem-classname';
 import { isNaN, isFinite, isEmpty, trim, parseInt } from 'lodash';
 
 import FieldComponent from '../FieldComponent';
+import './input-number.scss';
 
 export default class InputNumber extends FieldComponent {
   onBlurBound = this.onBlur.bind(this);
@@ -11,22 +12,26 @@ export default class InputNumber extends FieldComponent {
   constructor(props) {
     super(props, 'Input');
 
-    this.state = {
-        value: this.props.value
-    };
+    this.validateProps(props);
+
+    this.state = Object.assign({}, this.state, { value: isFinite(props.value) ? props.value.toString() : ''});
+  }
+
+  componentWillReceiveProps(nextProps: any) {
+    this.validateProps(nextProps);
   }
 
   isValid() {
-    return this.isEmtpy() || this.getParsedState() !== null;
+    return this.isEmpty() || this.getParsedState() !== null;
   }
 
-  isEmtpy() {
+  isEmpty() {
     return isEmpty(trim(this.state.value));
   }
 
-  renderEditMode() {
+  renderEditMode(baseClassName: string) {
       return (
-        <input className={this.className({ error: !this.isValid()})}
+        <input className={bem(baseClassName, 'InputNumber__Edit', { error: !this.isValid()})}
               ref={(el) => this.element = el}
               type='text'
               value={this.state.value}
@@ -38,9 +43,9 @@ export default class InputNumber extends FieldComponent {
       );
   }
 
-  renderViewMode() {
+  renderViewMode(baseClassName: string) {
       return (
-          <div>
+          <div className={bem(baseClassName, 'InputNumber__View')}>
               {this.props.value}
           </div>
       );
@@ -62,10 +67,34 @@ export default class InputNumber extends FieldComponent {
 
   onChange(event: React.SyntheticEvent<HTMLInputElement>) {
     const enteredValue = event.currentTarget.value;
+    let value = null;
 
     if (!this.isValidValueEntered(enteredValue)) {
       event.preventDefault();
       return;
+    }
+
+    if (isEmpty(trim(enteredValue))) {
+        this.setState({ value: '' });
+    } else {
+      const truncatedEnteredValue = this.truncateToDecimalPlaces(enteredValue);
+
+      let enteredNumber = new Number(truncatedEnteredValue).valueOf();
+      let hasValueBeenScaled = false;
+
+      if (isFinite(this.props.min) && enteredNumber < this.props.min) {
+          enteredNumber = this.props.min;
+          hasValueBeenScaled = true;
+      }
+      if (isFinite(this.props.max) && enteredNumber > this.props.max) {
+          enteredNumber = this.props.max;
+          hasValueBeenScaled = true;
+      }
+
+      this.setState({
+          value: hasValueBeenScaled ? enteredNumber.toString() : truncatedEnteredValue
+      });
+      value = enteredNumber;
     }
 
     if (this.props.onChange) {
@@ -79,6 +108,38 @@ export default class InputNumber extends FieldComponent {
       if (parsedState !== null) {
           this.setState({ value: parsedState.toString() });
       }
+  }
+
+  truncateToDecimalPlaces(value: string) {
+    const maxDecimalPlaces = isFinite(this.props.maxDecimalPlaces) ? this.props.maxDecimalPlaces : 0;
+
+    if (this.countDecimals(value) > maxDecimalPlaces) {
+        let numberComponents = value.toString().split(this.numberDecimalPartSeparatorChar);
+        let decimalPlaces = numberComponents[1].substr(0, maxDecimalPlaces);
+
+        return numberComponents[0] + this.numberDecimalPartSeparatorChar + decimalPlaces;
+    }
+
+    return value;
+  }
+
+  countDecimals(value: string) {
+    const numberParts = value.split(this.numberDecimalPartSeparatorChar);
+    return numberParts.length <= 1 ? 0 : numberParts[1].length || 0;
+  }
+
+  validateProps(props: any) {
+    if (isFinite(props.min) && isFinite(props.max) && props.max < props.min) {
+        console.error('Unable to set properties when max < min');
+    }
+
+    if (isFinite(props.maxDecimalPlaces) && props.maxDecimalPlaces < 0) {
+        console.error('Unable to set property maxDecimalPlaces with a negative value');
+    }
+
+    if (isFinite(props.maxDecimalPlaces) && props.maxDecimalPlaces > 15) {
+        console.error('Unable to set property maxDecimalPlaces greater than 15');
+    }
   }
 
   isValidValueEntered(enteredValue: string) {
@@ -103,39 +164,39 @@ export default class InputNumber extends FieldComponent {
     }
 
     return false;
+  }
+
+  hasInvalidDecimalSeparator(enteredValue: string) {
+    const maxDecimalPlaces = isFinite(this.props.maxDecimalPlaces) ? this.props.maxDecimalPlaces : 0;
+
+    return maxDecimalPlaces === 0 && enteredValue.indexOf(this.numberDecimalPartSeparatorChar) > -1;
+  }
+
+  hasValidDecimalSeparatorChar(value: string) {
+    const maxDecimalPlaces = isFinite(this.props.maxDecimalPlaces) ? this.props.maxDecimalPlaces : 0;
+
+    if (maxDecimalPlaces > 0 && value === this.numberDecimalPartSeparatorChar) {
+        return true;
     }
 
-    hasInvalidDecimalSeparator(enteredValue: string) {
-      const maxDecimalPlaces = isFinite(this.props.maxDecimalPlaces) ? this.props.maxDecimalPlaces : 0;
+    return false;
+  }
 
-      return maxDecimalPlaces === 0 && enteredValue.indexOf(this.numberDecimalPartSeparatorChar) > -1;
+  hasValidNumber(value: string) {
+    let enteredNumber = new Number(value).valueOf();
+
+    if (!isNaN(enteredNumber)) {
+        return true;
     }
 
-    hasValidDecimalSeparatorChar(value: string) {
-      const maxDecimalPlaces = isFinite(this.props.maxDecimalPlaces) ? this.props.maxDecimalPlaces : 0;
+    return false;
+  }
 
-      if (maxDecimalPlaces > 0 && value === this.numberDecimalPartSeparatorChar) {
-          return true;
-      }
+  hasValidEmptyString(value: string) {
+    return isEmpty(trim(value));
+  }
 
-      return false;
-    }
-
-    hasValidNumber(value: string) {
-      let enteredNumber = new Number(value).valueOf();
-
-      if (!isNaN(enteredNumber)) {
-          return true;
-      }
-
-      return false;
-    }
-
-    hasValidEmptyString(value: string) {
-      return isEmpty(trim(value));
-    }
-
-    hasValidNegativeSign(value: string) {
-      return !(value !== '-' || (this.props.min !== null && value === '-' && this.props.min >= 0));
-    }
+  hasValidNegativeSign(value: string) {
+    return !(value !== '-' || (this.props.min !== null && value === '-' && this.props.min >= 0));
+  }
 }

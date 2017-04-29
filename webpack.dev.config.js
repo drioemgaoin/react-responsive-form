@@ -68,7 +68,7 @@ module.exports = {
   module: {
     loaders: [
       {
-        test: /\.less$/,
+        test: /\.scss$/,
         include: paths.appSrc,
         exclude: paths.appNodeModules,
         loader: combineLoaders([

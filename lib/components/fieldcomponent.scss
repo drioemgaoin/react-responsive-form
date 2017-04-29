@@ -1,0 +1,17 @@
+.Group {
+  margin-bottom: 5px;
+
+  &__Label {
+    display: inline-block;
+    margin-bottom: 5px;
+
+    &--error {
+      color: #d9534f;
+    }
+  }
+
+  &__Element--feedback {
+    color: #d9534f;
+    margin-top: 5px;
+  }
+}

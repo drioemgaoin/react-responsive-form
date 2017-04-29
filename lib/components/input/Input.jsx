@@ -17,9 +17,9 @@ export default class Input extends FieldComponent {
     return true;
   }
 
-  renderEditMode() {
+  renderEditMode(baseClassName: string) {
       return (
-        <input className={this.className({ error: !this.isValid()})}
+        <input className={bem(baseClassName, 'Input__Edit', { error: !this.isValid()})}
               ref={(el) => this.element = el}
               type='text'
               value={this.state.value || ''}
@@ -29,9 +29,9 @@ export default class Input extends FieldComponent {
       );
   }
 
-  renderViewMode() {
+  renderViewMode(baseClassName: string) {
       return (
-          <div>
+          <div className={bem(baseClassName, 'InputNumber__View')}>
               {this.props.value}
           </div>
       );
