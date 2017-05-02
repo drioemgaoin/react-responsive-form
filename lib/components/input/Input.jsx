@@ -16,6 +16,10 @@ export default class Input extends FieldComponent {
     return true;
   }
 
+  getValue() {
+    return this.state.value;
+  }
+
   renderEditMode(baseClassName: string) {
       return (
         <input className={bem(baseClassName, 'Input__Edit', { error: !this.isValid()})}

@@ -1,7 +1,7 @@
 import React from 'react';
 import bem from 'bem-classname';
 import classnames from 'classnames';
-import {assign} from 'lodash';
+import {forEach, isEmpty, assign} from 'lodash';
 
 import FieldComponent from '../FieldComponent';
 import { FormMode } from '../constants';
@@ -14,14 +14,14 @@ export default class Form extends React.Component {
   }
 
   onSubmit(e: React.SyntheticEvent<HTMLFormElement>) {
-      e.preventDefault();
+    e.preventDefault();
   }
 
-  onComponentValueChange(value: any, componentConfig: any) {
-    this.renderedComponents[componentConfig.fieldName].setValidationMessage('');
+  onComponentValueChange(value: any, element: any) {
+    this.renderedComponents[element.props.name].setValidationMessage('');
 
-    if (componentConfig.componentProps['onChange']) {
-        componentConfig.componentProps['onChange'](value);
+    if (element.onChange) {
+        element.onChange(value);
     }
   }
 
@@ -43,7 +43,7 @@ export default class Form extends React.Component {
                     mode: this.props.mode,
                     ref: (el: FieldComponent) => {
                         if (el) {
-                            this.renderedComponents[c.fieldName] = el;
+                            this.renderedComponents[c.props.name] = el;
                         }
                     },
                     onChange: (value: any) => {
@@ -73,7 +73,15 @@ export default class Form extends React.Component {
       };
       const saveButtonProps = this.prepareButtonProps(
           defaultSaveButtonProps,
-          this.props.saveButtonProps
+            assign(this.props.saveButtonProps, {
+                onClick: (e: React.SyntheticEvent<HTMLButtonElement>) => {
+                    if (this.props.saveButtonProps && this.props.saveButtonProps.onClick) {
+                        this.props.saveButtonProps.onClick(e);
+                    }
+
+                    this.onSaveButtonClick();
+                }
+            })
       );
 
       return (
@@ -116,5 +124,37 @@ export default class Form extends React.Component {
             onClick: customProps ? customProps.onClick : null
         }
     );
+  }
+
+  onSaveButtonClick() {
+    const formValues = this.getFormValues();
+    let errors: Map = {};
+
+    if (this.props.validate) {
+        forEach(this.renderedComponents, (component) => {
+            component.setValidationMessage('');
+        });
+
+        errors = this.props.validate(formValues);
+
+        if (!isEmpty(errors)) {
+            forEach(errors, (error, fieldName) => {
+                this.renderedComponents[fieldName].setValidationMessage(error);
+            });
+        }
+    }
+
+    if (isEmpty(errors)) {
+        this.props.onFormSubmit && this.props.onFormSubmit(formValues);
+    }
+  }
+
+  getFormValues() {
+    let values: Map = {};
+    forEach(this.renderedComponents, (component, fieldName) => {
+        values[fieldName] = component.getValue();
+    });
+
+    return values;
   }
 }

@@ -23,6 +23,10 @@ export default class InputNumber extends FieldComponent {
     this.validateProps(nextProps);
   }
 
+  getValue() {
+    return getParsedState(this.state.value);
+  }
+
   isValid() {
     return this.isEmpty() || getParsedState(this.state.value) !== null;
   }
