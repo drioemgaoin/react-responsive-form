@@ -12,14 +12,18 @@ export default class ResponsiveForm extends React.Component {
   firstname: React.SyntheticEvent<HTMLInputElement>;
   validate() {
     let errors: IMap<string> = {};
-    console.log(this);
-    // if (!this.firstname.isValid()) {
-    //     errors['firstname'] = this.firstname.getValidationMessage();
-    // }
-    //
-    // if (!this.quantity.isValid()) {
-    //     errors['quantity'] = this.quantity.getValidationMessage();
-    // }
+
+    if (!this.firstname.isValid()) {
+        errors['firstname'] = this.firstname.getValidationMessage();
+    }
+
+    if (!this.quantity.isValid()) {
+        errors['quantity'] = this.quantity.getValidationMessage();
+    }
+
+    if (!this.email.isValid()) {
+        errors['email'] = this.email.getValidationMessage();
+    }
 
     return errors;
   }
@@ -29,7 +33,7 @@ export default class ResponsiveForm extends React.Component {
       <div>
         <h2>My responsive form</h2>
         <Form mode={FormMode.Edit} validate={() => this.validate()}>
-            <Input ref={(el) => { this.firstname = el; }}
+            <Input ref={(el) => this.firstname = el}
                 name='firstname'
                 label='First Name'
                 placeholder='First Name'

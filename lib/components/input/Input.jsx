@@ -1,18 +1,24 @@
 import React from 'react';
 import bem from 'bem-classname';
 import classnames from 'classnames';
+import { isEmpty } from 'lodash';
 
 import FieldComponent from '../FieldComponent';
 
 export default class Input extends FieldComponent {
+  onChangeBound = this.onChange.bind(this);
+
   constructor(props) {
     super(props);
 
-    this.state = { value: this.props.value };
+    this.state = {
+      value: this.props.value,
+      isDirty: false
+    };
   }
 
   isValid() {
-    return true;
+    return !this.props.isRequired || !this.state.isDirty || !isEmpty(this.state.value);
   }
 
   getValue() {
@@ -31,7 +37,7 @@ export default class Input extends FieldComponent {
               value={this.state.value || ''}
               name={this.name}
               placeholder={this.props.placeholder}
-              onChange={(e: React.SyntheticEvent<HTMLInputElement>) => this.onInputChange(e.currentTarget.value)} />
+              onChange={this.onChangeBound} />
       );
   }
 
@@ -43,11 +49,20 @@ export default class Input extends FieldComponent {
       );
   }
 
-  onInputChange(value: string) {
-    this.setState({ value });
+  onChange(event: React.SyntheticEvent<HTMLInputElement>) {
+    const enteredValue = event.currentTarget.value;
+
+    this.setState({ value: enteredValue, isDirty: true });
+
+    if (this.props.isRequired && isEmpty(enteredValue)) {
+      event.preventDefault();
+      this.setValidationMessage(this.props.label + ' is required');
+      return;
+    }
+
 
     if (this.props.onChange) {
-        this.props.onChange(value);
+        this.props.onChange(enteredValue);
     }
   }
 }

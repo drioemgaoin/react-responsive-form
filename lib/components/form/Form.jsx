@@ -29,7 +29,7 @@ export default class Form extends React.Component {
     this.renderedComponents = {};
 
     return this.props.children.map(c => {
-        const component = React.createElement(
+        return React.createElement(
             c.type,
             assign(
                 {
@@ -43,6 +43,8 @@ export default class Form extends React.Component {
                         if (el) {
                             this.renderedComponents[c.props.name] = el;
                         }
+
+                        return c.ref(el);
                     },
                     onChange: (value: any) => {
                         this.onComponentValueChange(value, c);
@@ -50,8 +52,6 @@ export default class Form extends React.Component {
                 }
             )
         );
-
-        return component;
     });
   }
 

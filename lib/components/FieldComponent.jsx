@@ -2,13 +2,15 @@ import React from 'react';
 import bem from 'bem-classname';
 
 import { FormMode } from './constants';
-import { trim, isEmpty, isEqual } from 'lodash';
+import { replace, trim, isEmpty, isEqual } from 'lodash';
 
 import './fieldcomponent.scss';
 
 export default class FieldComponent extends React.Component {
     constructor(props) {
       super(props);
+
+      this.name = replace(props.label, /\W+/g, '');
 
       this.state = { validationMessage: '' };
     }
@@ -39,6 +41,10 @@ export default class FieldComponent extends React.Component {
 
     hasValidationMessage() {
       return !isEmpty(trim(this.state.validationMessage));
+    }
+
+    getValidationMessage() {
+        return this.state.validationMessage;
     }
 
     renderValidationMessage() {
