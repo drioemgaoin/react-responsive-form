@@ -49,7 +49,9 @@ export default class InputEmail extends FieldComponent {
   }
 
   onChange(event: React.SyntheticEvent<HTMLInputElement>) {
-    this.setState({ value: event.currentTarget.value });
+    const value = event.currentTarget.value;
+
+    this.setState({ value: value });
 
     if (this.props.onChange) {
         this.props.onChange(value);
