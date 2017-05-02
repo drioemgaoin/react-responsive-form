@@ -1,6 +1,7 @@
 import React from 'react';
 import bem from 'bem-classname';
-import { isFinite, isEmpty, trim } from 'lodash';
+import classnames from 'classnames';
+import { assign, isFinite, isEmpty, trim } from 'lodash';
 
 import isValidValueEntered from './validations';
 import {getParsedState, truncateToDecimalPlaces} from './util';
@@ -12,11 +13,11 @@ export default class InputNumber extends FieldComponent {
   onChangeBound = this.onChange.bind(this);
 
   constructor(props) {
-    super(props, 'Input');
+    super(props);
 
     this.validateProps(props);
 
-    this.state = Object.assign({}, this.state, { value: isFinite(props.value) ? props.value.toString() : ''});
+    this.state = assign({}, this.state, { value: isFinite(props.value) ? props.value.toString() : ''});
   }
 
   componentWillReceiveProps(nextProps: any) {
@@ -36,8 +37,12 @@ export default class InputNumber extends FieldComponent {
   }
 
   renderEditMode(baseClassName: string) {
+      const className = classnames(
+          bem(baseClassName, 'InputNumber__Edit', { error: !this.isValid() }),
+          this.props.className
+      );
       return (
-        <input className={bem(baseClassName, 'InputNumber__Edit', { error: !this.isValid()})}
+        <input className={className}
               ref={(el) => this.element = el}
               type='text'
               value={this.state.value}
@@ -52,7 +57,7 @@ export default class InputNumber extends FieldComponent {
   renderViewMode(baseClassName: string) {
       return (
           <div className={bem(baseClassName, 'InputNumber__View')}>
-              {this.props.value}
+              {this.props.value.toLocaleString()}
           </div>
       );
   }
@@ -74,7 +79,7 @@ export default class InputNumber extends FieldComponent {
     } else {
       const truncatedEnteredValue = truncateToDecimalPlaces(enteredValue, this.props.maxDecimalPlaces);
 
-      let enteredNumber = new Number(truncatedEnteredValue).valueOf();
+      let enteredNumber = Number(truncatedEnteredValue).valueOf();
       let hasValueBeenScaled = false;
 
       if (isFinite(this.props.min) && enteredNumber < this.props.min) {
@@ -97,7 +102,7 @@ export default class InputNumber extends FieldComponent {
     }
   }
 
-  onBlur(event: React.SyntheticEvent<HTMLInputElement>) {
+  onBlur() {
       const parsedState = getParsedState(this.state.value);
 
       if (parsedState !== null) {

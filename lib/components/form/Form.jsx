@@ -34,9 +34,7 @@ export default class Form extends React.Component {
             assign(
                 {
                     key: c.props.name,
-                    label: c.props.label,
-                    className: c.props.className,
-                    isRequired: c.props.isRequired
+                    ...c.props
                 },
                 c.componentProps,
                 {
@@ -114,13 +112,13 @@ export default class Form extends React.Component {
   }
 
   prepareButtonProps(defaultProps: any, customProps: any) {
-    const custmClassName = customProps ? customProps.className : {};
+    const customClassName = customProps ? customProps.className : {};
     return assign(
         {},
         defaultProps,
         customProps,
         {
-            className: classnames(defaultProps.className, custmClassName),
+            className: classnames(defaultProps.className, customClassName),
             onClick: customProps ? customProps.onClick : null
         }
     );
@@ -139,13 +137,15 @@ export default class Form extends React.Component {
 
         if (!isEmpty(errors)) {
             forEach(errors, (error, fieldName) => {
-                this.renderedComponents[fieldName].setValidationMessage(error);
+                    this.renderedComponents[fieldName].setValidationMessage(error);
             });
         }
     }
 
     if (isEmpty(errors)) {
-        this.props.onFormSubmit && this.props.onFormSubmit(formValues);
+        if (this.props.onFormSubmit) {
+            this.props.onFormSubmit(formValues);
+        }
     }
   }
 

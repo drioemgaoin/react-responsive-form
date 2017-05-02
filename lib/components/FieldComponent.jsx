@@ -7,7 +7,7 @@ import { trim, isEmpty, isEqual } from 'lodash';
 import './fieldcomponent.scss';
 
 export default class FieldComponent extends React.Component {
-    constructor(props, name) {
+    constructor(props) {
       super(props);
 
       this.state = { validationMessage: '' };

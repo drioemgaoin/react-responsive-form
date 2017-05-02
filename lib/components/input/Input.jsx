@@ -1,15 +1,14 @@
 import React from 'react';
 import bem from 'bem-classname';
+import classnames from 'classnames';
 
 import FieldComponent from '../FieldComponent';
 
 export default class Input extends FieldComponent {
   constructor(props) {
-    super(props, 'Input');
+    super(props);
 
-    this.state = {
-        value: this.props.value
-    };
+    this.state = { value: this.props.value };
   }
 
   isValid() {
@@ -21,9 +20,13 @@ export default class Input extends FieldComponent {
   }
 
   renderEditMode(baseClassName: string) {
+      const className = classnames(
+          bem(baseClassName, 'Input__Edit', { error: !this.isValid() }),
+          this.props.className
+      );
       return (
-        <input className={bem(baseClassName, 'Input__Edit', { error: !this.isValid()})}
-              ref={(el) => this.element = el}
+        <input className={className}
+              ref={(el) => { this.element = el; }}
               type='text'
               value={this.state.value || ''}
               name={this.name}
@@ -34,7 +37,7 @@ export default class Input extends FieldComponent {
 
   renderViewMode(baseClassName: string) {
       return (
-          <div className={bem(baseClassName, 'InputNumber__View')}>
+          <div className={bem(baseClassName, 'Input__View')}>
               {this.props.value}
           </div>
       );
