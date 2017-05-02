@@ -37,6 +37,7 @@
     "babel-preset-stage-0": "^6.22.0",
     "bem-classname": "0.1.1",
     "case-sensitive-paths-webpack-plugin": "2.0.0",
+    "classnames": "^2.2.5",
     "css-loader": "0.16.0",
     "detect-port": "1.1.1",
     "dotenv": "4.0.0",

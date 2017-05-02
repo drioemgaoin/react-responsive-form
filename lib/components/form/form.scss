@@ -1,0 +1,8 @@
+.Form__Buttons__Button {
+    width: 80px;
+    height: 23px;
+
+    &:not(:first-child) {
+        margin-left: 10px;
+    }
+}

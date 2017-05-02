@@ -27,7 +27,7 @@ export default class FieldComponent extends React.Component {
             <label htmlFor={this.name} className={bem('Group__Label', { error: !this.isValid() || this.hasValidationMessage() })}>
                 {this.props.label}
             </label>
-            {this.props.mode === 'Edit' ? this.renderEditMode('Group') : this.renderViewMode('Group')}
+            {this.props.mode === FormMode.Edit ? this.renderEditMode('Group') : this.renderViewMode('Group')}
             {this.hasValidationMessage() ? this.renderValidationMessage() : null }
         </div>
       );

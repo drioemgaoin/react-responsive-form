@@ -7,7 +7,6 @@ export default class Input extends FieldComponent {
   constructor(props) {
     super(props, 'Input');
 
-
     this.state = {
         value: this.props.value
     };
