@@ -16,16 +16,6 @@ export default class Input extends FieldComponent {
 
   constructor(props) {
     super(props);
-
-    this.state = assign({}, this.state, { value: this.props.value });
-  }
-
-  isValid() {
-    return !this.hasValidationMessages();
-  }
-
-  getValue() {
-    return this.state.value;
   }
 
   renderEditMode(baseClassName: string) {
@@ -53,20 +43,6 @@ export default class Input extends FieldComponent {
       );
   }
 
-  validate(value: string) {
-      let errors: Array<string> = [];
-
-      if (this.props.isRequired && isEmpty(value)) {
-          errors.push(this.props.label + ' is required');
-      }
-
-      if (this.props.validate) {
-          errors = errors.concat(this.props.validate(value));
-      }
-
-      return errors;
-  }
-
   onChange(event: React.SyntheticEvent<HTMLInputElement>) {
     this.change(
         event.currentTarget.value,
@@ -88,6 +64,13 @@ export default class Input extends FieldComponent {
       let errors = [];
       if (mustValidate) {
           errors = this.validate(enteredValue);
+          if (errors.includes(false)) {
+            // Validation returning boolean prevent input
+            // -> Not error message displayed
+            return;
+          }
+
+          errors = errors.filter(error => typeof error !== 'boolean');
           if (errors.length > 0) {
               this.setValidationMessages(errors);
           }

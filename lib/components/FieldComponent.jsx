@@ -3,6 +3,7 @@ import bem from 'bem-classname';
 
 import { FormMode } from './constants';
 import { replace, isEqual } from 'lodash';
+import { isEmpty } from './util';
 
 import './fieldcomponent.scss';
 
@@ -12,7 +13,10 @@ export default class FieldComponent extends React.Component {
 
       this.name = replace(props.label, /\W+/g, '');
 
-      this.state = { validationMessages: [] };
+      this.state = {
+        validationMessages: [],
+        value: this.props.value
+      };
     }
 
     componentDidUpdate(prevProps: any, prevState: any, prevContext: any) {
@@ -21,6 +25,14 @@ export default class FieldComponent extends React.Component {
           !isEqual(this.state.value, prevState.value)) {
           this.setValidationMessages([]);
       }
+    }
+
+    renderEditMode() {
+      return null;
+    }
+
+    renderViewMode() {
+      return null;
     }
 
     render() {
@@ -33,6 +45,14 @@ export default class FieldComponent extends React.Component {
             {this.hasValidationMessages() ? this.renderValidationMessages() : null }
         </div>
       );
+    }
+
+    getValue() {
+      return this.state.value;
+    }
+
+    isValid() {
+      return !this.hasValidationMessages();
     }
 
     setValidationMessages(messages: string[]) {
@@ -55,5 +75,19 @@ export default class FieldComponent extends React.Component {
                 })}
             </div>
         );
+    }
+
+    validate(value: string) {
+        let errors: Array<string> = [];
+
+        if (this.props.isRequired && isEmpty(value)) {
+            errors.push(this.props.label + ' is required');
+        }
+
+        if (this.props.validate) {
+            errors = errors.concat(this.props.validate(value));
+        }
+
+        return errors;
     }
 }

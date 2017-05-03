@@ -3,21 +3,26 @@ import bem from 'bem-classname';
 import classnames from 'classnames';
 import { assign, isFinite, isEmpty, trim } from 'lodash';
 
-import isValidValueEntered from './validations';
-import {getParsedState, truncateToDecimalPlaces} from './util';
+import validate from './validations';
+import {parse, truncateToDecimalPlaces} from './util';
+import {ValidationMode} from '../constants';
+
+import Input from '../input/Input';
 import FieldComponent from '../FieldComponent';
+
 import './input-number.scss';
 
 export default class InputNumber extends FieldComponent {
-  onBlurBound = this.onBlur.bind(this);
-  onChangeBound = this.onChange.bind(this);
+  static defaultProps = {
+    validationMode: ValidationMode.OnChange,
+    maxDecimalPlaces: 0,
+    min: 0
+  };
 
   constructor(props) {
     super(props);
 
     this.validateProps(props);
-
-    this.state = assign({}, this.state, { value: isFinite(props.value) ? props.value.toString() : ''});
   }
 
   componentWillReceiveProps(nextProps: any) {
@@ -25,89 +30,22 @@ export default class InputNumber extends FieldComponent {
   }
 
   getValue() {
-    return getParsedState(this.state.value);
+    return parse(this.refs[this.name].getValue());
   }
 
-  isValid() {
-    return this.isEmpty() || getParsedState(this.state.value) !== null;
+  setValidationMessages(messages: string[]) {
+    this.refs[this.name].setValidationMessages(messages);
   }
 
-  isEmpty() {
-    return isEmpty(trim(this.state.value));
-  }
-
-  renderEditMode(baseClassName: string) {
-      const className = classnames(
-          bem(baseClassName, 'InputNumber__Edit', { error: !this.isValid() }),
-          this.props.className
-      );
+  render() {
+      const className = classnames('InputNumber', this.props.className);
       return (
-        <input className={className}
-              ref={(el) => this.element = el}
-              type='text'
-              value={this.state.value}
-              name={this.name}
-              placeholder={this.props.placeholder}
-              onChange={this.onChangeBound}
-              onBlur={this.onBlurBound}
-              autoComplete={'off'} />
+        <Input className={className}
+               ref={this.name}
+               {...this.props}
+               value={isFinite(this.props.value) ? this.props.value.toString() : ''}
+               validate={(value) => validate(value, this.props.maxDecimalPlaces, this.props.min)} />
       );
-  }
-
-  renderViewMode(baseClassName: string) {
-      return (
-          <div className={bem(baseClassName, 'InputNumber__View')}>
-              {this.props.value.toLocaleString()}
-          </div>
-      );
-  }
-
-  onChange(event: React.SyntheticEvent<HTMLInputElement>) {
-    const enteredValue = event.currentTarget.value;
-    let value = null;
-
-    if (!isValidValueEntered(
-            enteredValue,
-            this.props.maxDecimalPlaces,
-            this.props.min)) {
-      event.preventDefault();
-      return;
-    }
-
-    if (isEmpty(trim(enteredValue))) {
-        this.setState({ value: '' });
-    } else {
-      const truncatedEnteredValue = truncateToDecimalPlaces(enteredValue, this.props.maxDecimalPlaces);
-
-      let enteredNumber = Number(truncatedEnteredValue).valueOf();
-      let hasValueBeenScaled = false;
-
-      if (isFinite(this.props.min) && enteredNumber < this.props.min) {
-          enteredNumber = this.props.min;
-          hasValueBeenScaled = true;
-      }
-      if (isFinite(this.props.max) && enteredNumber > this.props.max) {
-          enteredNumber = this.props.max;
-          hasValueBeenScaled = true;
-      }
-
-      this.setState({
-          value: hasValueBeenScaled ? enteredNumber.toString() : truncatedEnteredValue
-      });
-      value = enteredNumber;
-    }
-
-    if (this.props.onChange) {
-      this.props.onChange(value);
-    }
-  }
-
-  onBlur() {
-      const parsedState = getParsedState(this.state.value);
-
-      if (parsedState !== null) {
-          this.setState({ value: parsedState.toString() });
-      }
   }
 
   validateProps(props: any) {

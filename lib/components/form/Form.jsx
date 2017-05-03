@@ -134,6 +134,8 @@ export default class Form extends React.Component {
 
     const isValid = every(this.renderedComponents, (component, fieldName) => component.isValid());
     if (isValid) {
+        console.log(formValues);
+        
         if (this.props.onFormSubmit) {
             this.props.onFormSubmit(formValues);
         }
