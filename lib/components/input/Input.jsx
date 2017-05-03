@@ -20,7 +20,7 @@ export default class Input extends FieldComponent {
 
   renderEditMode(baseClassName: string) {
       const className = classnames(
-          bem(baseClassName, 'Input__Edit'),
+          bem(baseClassName, 'input') + ' ' + bem('input', ['edit']),
           this.props.className
       );
       return (
@@ -37,7 +37,7 @@ export default class Input extends FieldComponent {
 
   renderViewMode(baseClassName: string) {
       return (
-          <div className={bem(baseClassName, 'Input__View')}>
+          <div className={bem(baseClassName, 'input') + ' ' + bem('input', ['view'])}>
               {this.props.value}
           </div>
       );

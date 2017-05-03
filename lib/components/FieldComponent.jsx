@@ -37,11 +37,11 @@ export default class FieldComponent extends React.Component {
 
     render() {
       return (
-        <div className={bem('Group', { required: this.props.isRequired })}>
-            <label htmlFor={this.name} className={bem('Group__Label', { error: this.hasValidationMessages() })}>
+        <div className={bem('field', { required: this.props.mode === FormMode.Edit && this.props.isRequired })}>
+            <label htmlFor={this.name} className={bem('field', 'label', { error: this.hasValidationMessages() })}>
                 {this.props.label}
             </label>
-            {this.props.mode === FormMode.Edit ? this.renderEditMode('Group') : this.renderViewMode('Group')}
+            {this.props.mode === FormMode.Edit ? this.renderEditMode('field') : this.renderViewMode('field')}
             {this.hasValidationMessages() ? this.renderValidationMessages() : null }
         </div>
       );
@@ -69,7 +69,7 @@ export default class FieldComponent extends React.Component {
 
     renderValidationMessages() {
       return (
-            <div className={bem('Group__Element--feedback')}>
+            <div className={bem('field', ['feedback'])}>
                 {this.state.validationMessages.map((message: string) => {
                     return <span key={this.state.validationMessages.indexOf(message)}>{message}</span>;
                 })}

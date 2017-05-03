@@ -1,17 +1,23 @@
-.Group {
-  margin-bottom: 5px;
-
-  &__Label {
-    display: inline-block;
-    margin-bottom: 5px;
-
-    &--error {
-      color: #d9534f;
-    }
+.field {
+  &--required > label:after {
+    margin-left: 3px;
+    content:"*";
+    color: #d9534f;
   }
 
-  &__Element--feedback {
+  &__label {
+    position: relative;
+    display: inline-block;
+    width: 100px;
+  }
+
+  &__input {
+    display: inline-block;
+    width: 150px;
+  }
+
+  &--feedback {
+    margin: 5px 0px 10px 100px;
     color: #d9534f;
-    margin-top: 5px;
   }
 }

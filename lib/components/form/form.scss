@@ -1,8 +1,21 @@
-.Form__Buttons__Button {
-    width: 80px;
-    height: 23px;
+.form {
+  display: inline-block;
 
-    &:not(:first-child) {
-        margin-left: 10px;
+  > .field:not(:first-child) {
+    margin-top: 10px;
+  }
+
+  &__buttons {
+    text-align: center;
+    padding: 20px 0px 10px 0px;
+
+    &__button {
+      width: 80px;
+      height: 23px;
+
+      &:not(:first-child) {
+          margin-left: 10px;
+      }
     }
+  }
 }

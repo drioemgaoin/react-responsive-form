@@ -47,7 +47,7 @@ export default class Form extends React.Component {
 
   renderButtons() {
       return (
-          <div className='Form__Buttons'>
+          <div className={bem('form', 'buttons')}>
               {this.props.mode === FormMode.Edit ? this.renderSaveButton() : null}
               {this.renderCancelButton()}
           </div>
@@ -57,7 +57,7 @@ export default class Form extends React.Component {
   renderSaveButton() {
       const defaultSaveButtonProps = {
           label: 'Save',
-          className: 'Form__Buttons__Button'
+          className: bem('form__buttons', 'button')
       };
       const saveButtonProps = this.prepareButtonProps(
           defaultSaveButtonProps,
@@ -80,7 +80,7 @@ export default class Form extends React.Component {
   renderCancelButton() {
         const defaultCancelButtonProps = {
             label: 'Cancel',
-            className: 'Form__Buttons__Button'
+            className: bem('form__buttons', 'button')
         };
         const cancelButtonProps = this.prepareButtonProps(
             defaultCancelButtonProps,
@@ -94,7 +94,7 @@ export default class Form extends React.Component {
 
   render() {
       return (
-          <form className={bem('Form')} onSubmit={this.onSubmit.bind(this)}>
+          <form className='form' onSubmit={this.onSubmit.bind(this)}>
               {this.renderComponents()}
               {this.renderButtons()}
           </form>
@@ -135,7 +135,7 @@ export default class Form extends React.Component {
     const isValid = every(this.renderedComponents, (component, fieldName) => component.isValid());
     if (isValid) {
         console.log(formValues);
-        
+
         if (this.props.onFormSubmit) {
             this.props.onFormSubmit(formValues);
         }
