@@ -61,7 +61,7 @@ export default class Input extends FieldComponent {
       }
 
       if (this.props.validate) {
-          this.props.validate(value).push((error: string) => errors.push(error));
+          errors = errors.concat(this.props.validate(value));
       }
 
       return errors;

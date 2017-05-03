@@ -116,7 +116,6 @@ export default class Form extends React.Component {
 
   onSaveButtonClick() {
     const formValues = this.getFormValues();
-    let errorAggregation: Map = {};
 
     forEach(this.renderedComponents, (component, fieldName) => {
         component.setValidationMessages([]);
@@ -128,7 +127,8 @@ export default class Form extends React.Component {
 
     if (this.props.validate) {
         forEach(this.props.validate(formValues), (errors, fieldName) => {
-            this.renderedComponents[fieldName].setValidationMessage(errors.concat(errorAggregation[fieldName]));
+            const currentErrors = this.renderedComponents[fieldName].getValidationMessages();
+            this.renderedComponents[fieldName].setValidationMessage(currentErrors.concat(errors));
         });
     }
 
