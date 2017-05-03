@@ -12,7 +12,29 @@ export default class ResponsiveForm extends React.Component {
   render() {
     return (
       <div>
-        <h2>My responsive form</h2>
+        <h2>Default Form</h2>
+        <Form mode={FormMode.Edit}>
+            <Input ref={(el) => this.firstname = el}
+                name='firstname'
+                label='First Name'
+                placeholder='First Name'
+                mode={FormMode.Edit}
+                isRequired={true} />
+            <InputNumber ref={(el) => this.quantity = el}
+                name='quantity'
+                label='Quantity'
+                placeholder='Quantity'
+                mode={FormMode.Edit}
+                isRequired={true} />
+            <InputEmail ref={(el) => this.email = el}
+                name='email'
+                label='Email'
+                placeholder='example@domain.com'
+                mode={FormMode.Edit}
+                isRequired={true} />
+        </Form>
+        <hr />
+        <h2>Form with custom style</h2>
         <Form mode={FormMode.Edit}>
             <Input ref={(el) => this.firstname = el}
                 name='firstname'
