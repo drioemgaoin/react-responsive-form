@@ -44,7 +44,7 @@ export default class ResponsiveForm extends React.Component {
                 isRequired={true} />
         </Form>
         <div id='default-form'>
-          <pre>{JSON.stringify(this.state.values, null, 2)}</pre>
+          <pre>{JSON.stringify(this.state.values, (key, value) => value ? value : null, 2)}</pre>
         </div>
         <hr />
         <h2>Default Form ReadOnly</h2>
