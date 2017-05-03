@@ -1,24 +1,27 @@
 import React from 'react';
 import bem from 'bem-classname';
 import classnames from 'classnames';
-import { isEmpty } from 'lodash';
+import { assign, isEmpty } from 'lodash';
 
 import FieldComponent from '../FieldComponent';
+import {ValidationMode} from '../constants';
 
 export default class Input extends FieldComponent {
   onChangeBound = this.onChange.bind(this);
+  onBlurBound = this.onBlur.bind(this);
+
+  static defaultProps = {
+    validationMode: ValidationMode.OnSubmit
+  };
 
   constructor(props) {
     super(props);
 
-    this.state = {
-      value: this.props.value,
-      isDirty: false
-    };
+    this.state = assign({}, this.state, { value: this.props.value });
   }
 
   isValid() {
-    return !this.props.isRequired || !this.state.isDirty || !isEmpty(this.state.value);
+    return !this.hasValidationMessages();
   }
 
   getValue() {
@@ -27,7 +30,7 @@ export default class Input extends FieldComponent {
 
   renderEditMode(baseClassName: string) {
       const className = classnames(
-          bem(baseClassName, 'Input__Edit', { error: !this.isValid() }),
+          bem(baseClassName, 'Input__Edit'),
           this.props.className
       );
       return (
@@ -37,7 +40,8 @@ export default class Input extends FieldComponent {
               value={this.state.value || ''}
               name={this.name}
               placeholder={this.props.placeholder}
-              onChange={this.onChangeBound} />
+              onChange={this.onChangeBound}
+              onBlur={this.onBlurBound} />
       );
   }
 
@@ -49,20 +53,50 @@ export default class Input extends FieldComponent {
       );
   }
 
+  validate(value: string) {
+      let errors: Array<string> = [];
+
+      if (this.props.isRequired && isEmpty(value)) {
+          errors.push(this.props.label + ' is required');
+      }
+
+      if (this.props.validate) {
+          this.props.validate(value).push((error: string) => errors.push(error));
+      }
+
+      return errors;
+  }
+
   onChange(event: React.SyntheticEvent<HTMLInputElement>) {
-    const enteredValue = event.currentTarget.value;
+    this.change(
+        event.currentTarget.value,
+        this.props.validationMode === ValidationMode.OnChange
+    );
+  }
 
-    this.setState({ value: enteredValue, isDirty: true });
+  onBlur(event: React.SyntheticEvent<HTMLInputElement>) {
+      this.change(
+          event.currentTarget.value,
+          this.props.validationMode === ValidationMode.OnBlur
+      );
+  }
 
-    if (this.props.isRequired && isEmpty(enteredValue)) {
+  change(enteredValue: string, mustValidate: boolean) {
       event.preventDefault();
-      this.setValidationMessage(this.props.label + ' is required');
-      return;
-    }
+      this.setValidationMessages([]);
 
+      let errors = [];
+      if (mustValidate) {
+          errors = this.validate(enteredValue);
+          if (errors.length > 0) {
+              this.setValidationMessages(errors);
+          }
+      }
 
-    if (this.props.onChange) {
-        this.props.onChange(enteredValue);
-    }
+      this.setState({ value: enteredValue });
+
+      if (errors.length === 0 && this.props.onChange) {
+          this.props.onChange(enteredValue);
+      }
   }
 }

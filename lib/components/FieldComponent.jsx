@@ -2,7 +2,7 @@ import React from 'react';
 import bem from 'bem-classname';
 
 import { FormMode } from './constants';
-import { replace, trim, isEmpty, isEqual } from 'lodash';
+import { replace, isEqual } from 'lodash';
 
 import './fieldcomponent.scss';
 
@@ -12,45 +12,47 @@ export default class FieldComponent extends React.Component {
 
       this.name = replace(props.label, /\W+/g, '');
 
-      this.state = { validationMessage: '' };
+      this.state = { validationMessages: [] };
     }
 
     componentDidUpdate(prevProps: any, prevState: any, prevContext: any) {
-      if (this.state.validationMessage === prevState.validationMessage &&
-          !isEmpty(this.state.validationMessage) &&
+      if (this.state.validationMessages === prevState.validationMessages &&
+          this.state.validationMessages.length > 0 &&
           !isEqual(this.state.value, prevState.value)) {
-          this.setValidationMessage('');
+          this.setValidationMessages([]);
       }
     }
 
     render() {
       return (
         <div className={bem('Group', { required: this.props.isRequired })}>
-            <label htmlFor={this.name} className={bem('Group__Label', { error: !this.isValid() || this.hasValidationMessage() })}>
+            <label htmlFor={this.name} className={bem('Group__Label', { error: this.hasValidationMessages() })}>
                 {this.props.label}
             </label>
             {this.props.mode === FormMode.Edit ? this.renderEditMode('Group') : this.renderViewMode('Group')}
-            {this.hasValidationMessage() ? this.renderValidationMessage() : null }
+            {this.hasValidationMessages() ? this.renderValidationMessages() : null }
         </div>
       );
     }
 
-    setValidationMessage(message: string) {
-        this.setState({ validationMessage: message });
+    setValidationMessages(messages: string[]) {
+        this.setState({ validationMessages: messages });
     }
 
-    hasValidationMessage() {
-      return !isEmpty(trim(this.state.validationMessage));
+    hasValidationMessages() {
+      return this.state.validationMessages.length > 0;
     }
 
-    getValidationMessage() {
-        return this.state.validationMessage;
+    getValidationMessages() {
+        return this.state.validationMessages;
     }
 
-    renderValidationMessage() {
+    renderValidationMessages() {
       return (
             <div className={bem('Group__Element--feedback')}>
-                {this.state.validationMessage}
+                {this.state.validationMessages.map((message: string) => {
+                    return <span key={this.state.validationMessages.indexOf(message)}>{message}</span>;
+                })}
             </div>
         );
     }

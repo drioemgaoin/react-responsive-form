@@ -1,7 +1,7 @@
 import React from 'react';
 import bem from 'bem-classname';
 import classnames from 'classnames';
-import {forEach, isEmpty, assign} from 'lodash';
+import {every, forEach, isEmpty, assign} from 'lodash';
 
 import FieldComponent from '../FieldComponent';
 import { FormMode } from '../constants';
@@ -17,18 +17,11 @@ export default class Form extends React.Component {
     e.preventDefault();
   }
 
-  onComponentValueChange(value: any, element: any) {
-    this.renderedComponents[element.props.name].setValidationMessage('');
-
-    if (element.onChange) {
-        element.onChange(value);
-    }
-  }
-
   renderComponents() {
     this.renderedComponents = {};
 
-    return this.props.children.map(c => {
+    const components = React.Children.toArray(this.props.children);
+    return components.map(c => {
         return React.createElement(
             c.type,
             assign(
@@ -45,9 +38,6 @@ export default class Form extends React.Component {
                         }
 
                         return c.ref(el);
-                    },
-                    onChange: (value: any) => {
-                        this.onComponentValueChange(value, c);
                     }
                 }
             )
@@ -126,23 +116,24 @@ export default class Form extends React.Component {
 
   onSaveButtonClick() {
     const formValues = this.getFormValues();
-    let errors: Map = {};
+    let errorAggregation: Map = {};
+
+    forEach(this.renderedComponents, (component, fieldName) => {
+        component.setValidationMessages([]);
+
+        if (component.validate) {
+            component.setValidationMessages(component.validate(formValues[fieldName]));
+        }
+    });
 
     if (this.props.validate) {
-        forEach(this.renderedComponents, (component) => {
-            component.setValidationMessage('');
+        forEach(this.props.validate(formValues), (errors, fieldName) => {
+            this.renderedComponents[fieldName].setValidationMessage(errors.concat(errorAggregation[fieldName]));
         });
-
-        errors = this.props.validate(formValues);
-
-        if (!isEmpty(errors)) {
-            forEach(errors, (error, fieldName) => {
-                    this.renderedComponents[fieldName].setValidationMessage(error);
-            });
-        }
     }
 
-    if (isEmpty(errors)) {
+    const isValid = every(this.renderedComponents, (component, fieldName) => component.isValid());
+    if (isValid) {
         if (this.props.onFormSubmit) {
             this.props.onFormSubmit(formValues);
         }
