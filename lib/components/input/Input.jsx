@@ -10,10 +10,6 @@ export default class Input extends FieldComponent {
   onChangeBound = this.onChange.bind(this);
   onBlurBound = this.onBlur.bind(this);
 
-  static defaultProps = {
-    validationMode: ValidationMode.OnSubmit
-  };
-
   constructor(props) {
     super(props);
   }
@@ -61,19 +57,18 @@ export default class Input extends FieldComponent {
       event.preventDefault();
       this.setValidationMessages([]);
 
-      let errors = [];
-      if (mustValidate) {
-          errors = this.validate(enteredValue);
-          if (errors.includes(false)) {
-            // Validation returning boolean prevent input
-            // -> Not error message displayed
-            return;
-          }
+      let errors = this.validate(enteredValue);
+      if (errors.includes(false)) {
+        // Validation returning boolean prevent input
+        // -> Not error message displayed
+        return;
+      }
 
-          errors = errors.filter(error => typeof error !== 'boolean');
-          if (errors.length > 0) {
-              this.setValidationMessages(errors);
-          }
+      if (mustValidate) {
+        errors = errors.filter(error => typeof error !== 'boolean');
+        if (errors.length > 0) {
+            this.setValidationMessages(errors);
+        }
       }
 
       this.setState({ value: enteredValue });

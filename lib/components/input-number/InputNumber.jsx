@@ -14,7 +14,6 @@ import './input-number.scss';
 
 export default class InputNumber extends FieldComponent {
   static defaultProps = {
-    validationMode: ValidationMode.OnChange,
     maxDecimalPlaces: 0,
     min: 0
   };
