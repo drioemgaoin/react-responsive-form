@@ -1,4 +1,6 @@
 .field {
+  position: relative;
+
   &--required > label:after {
     margin-left: 3px;
     content:"*";
@@ -16,8 +18,24 @@
     width: 150px;
   }
 
-  &--feedback {
+  &__feedback {
     margin: 5px 0px 10px 100px;
     color: #d9534f;
+  }
+
+  &__glyphicon {
+    position: absolute;
+    top: 0;
+    right: 3;
+    z-index: 2;
+    display: block;
+    text-align: center;
+    pointer-events: none;
+    color: #d9534f;
+
+    &:after {
+        content: '\E014';
+        font-weight: bold;
+    }
   }
 }

@@ -6,6 +6,8 @@ import { assign, isEmpty } from 'lodash';
 import FieldComponent from '../FieldComponent';
 import {ValidationMode} from '../constants';
 
+import './input.scss';
+
 export default class Input extends FieldComponent {
   onChangeBound = this.onChange.bind(this);
   onBlurBound = this.onBlur.bind(this);
@@ -16,7 +18,7 @@ export default class Input extends FieldComponent {
 
   renderEditMode(baseClassName: string) {
       const className = classnames(
-          bem(baseClassName, 'input') + ' ' + bem('input', ['edit']),
+          bem(baseClassName, 'input') + ' ' + bem('input', ['edit', !this.isValid() ? 'error' : '']),
           this.props.className
       );
       return (

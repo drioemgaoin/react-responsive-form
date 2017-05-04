@@ -42,6 +42,7 @@ export default class FieldComponent extends React.Component {
                 {this.props.label}
             </label>
             {this.props.mode === FormMode.Edit ? this.renderEditMode('field') : this.renderViewMode('field')}
+            {this.hasValidationMessages() ? this.renderValidationGlyphicon() : null }
             {this.hasValidationMessages() ? this.renderValidationMessages() : null }
         </div>
       );
@@ -67,9 +68,16 @@ export default class FieldComponent extends React.Component {
         return this.state.validationMessages;
     }
 
+    renderValidationGlyphicon() {
+      return (
+            <span className={bem('field', 'glyphicon')}>
+            </span>
+        );
+    }
+
     renderValidationMessages() {
       return (
-            <div className={bem('field', ['feedback'])}>
+            <div className={bem('field', 'feedback')}>
                 {this.state.validationMessages.map((message: string) => {
                     return <span key={this.state.validationMessages.indexOf(message)}>{message}</span>;
                 })}
