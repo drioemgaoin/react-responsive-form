@@ -57,7 +57,7 @@ module.exports = {
   output: {
     // The build folder.
     path: paths.appLibrary,
-    filename: 'react-responsive-ui-toolbar.js',
+    filename: 'react-responsive-form.js',
     library: 'ReactResponsiveUIToolbar',
     libraryTarget: 'umd'
   },
@@ -72,7 +72,7 @@ module.exports = {
     // We also include JSX as a common component filename extension to support
     // some tools, although we do not recommend using it, see:
     // https://github.com/facebookincubator/create-react-app/issues/290
-    extensions: ['', '.js', '.jsx', '.es6.jsx', '.less', '.css'],
+    extensions: ['', '.js', '.jsx', '.es6.jsx', '.scss', '.css'],
     alias: {
       // Support React Native Web
       // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
@@ -84,10 +84,8 @@ module.exports = {
 
       loaders: [
         {
-          test: /\.less$/,
-          include: paths.appSrc,
-          exclude: paths.appNodeModules,
-          loader: ExtractTextPlugin.extract('style-loader', 'css-loader!less-loader')
+          test: /\.scss$/,
+          loader: ExtractTextPlugin.extract('style-loader', 'css-loader!sass-loader')
         },
         {
             test: /(\.js)|(\.jsx)$/,
@@ -110,6 +108,14 @@ module.exports = {
         {
           test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
           loader: 'url-loader?limit=10000&mimetype=image/svg+xml'
+        },
+        {
+            test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+            loader: 'url-loader'
+        },
+        {
+            test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+            loader: 'url-loader'
         }
       ]
   },
@@ -134,6 +140,6 @@ module.exports = {
   ],
 
   plugins: [
-    new ExtractTextPlugin("react-responsive-ui-toolbar.css")
+    new ExtractTextPlugin("react-responsive-form.css")
   ]
 };

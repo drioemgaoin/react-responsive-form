@@ -33,9 +33,6 @@ module.exports = {
 
     require.resolve('./config/polyfills'),
 
-    // Font awesome
-
-
     // Our application
     paths.appIndexJs
   ],
