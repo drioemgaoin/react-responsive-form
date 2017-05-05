@@ -32,6 +32,7 @@ export default class Form extends React.Component {
                 c.componentProps,
                 {
                     mode: this.props.mode,
+                    validationMode: c.props.validationMode ? c.props.validationMode : this.props.validationMode,
                     ref: (el: FieldComponent) => {
                         if (el) {
                             this.renderedComponents[c.props.name] = el;
