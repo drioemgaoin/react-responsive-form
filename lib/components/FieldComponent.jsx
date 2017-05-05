@@ -5,6 +5,7 @@ import { FormMode } from './constants';
 import { replace, isEqual } from 'lodash';
 import { isEmpty } from './util';
 
+import '../../node_modules/font-awesome/scss/font-awesome.scss';
 import './fieldcomponent.scss';
 
 export default class FieldComponent extends React.Component {

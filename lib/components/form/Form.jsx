@@ -95,7 +95,7 @@ export default class Form extends React.Component {
 
   render() {
       return (
-          <form className='form' onSubmit={this.onSubmit.bind(this)}>
+          <form className={classnames('form', this.props.className)} onSubmit={this.onSubmit.bind(this)}>
               {this.renderComponents()}
               {this.renderButtons()}
           </form>

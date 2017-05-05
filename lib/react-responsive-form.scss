@@ -1,2 +1,17 @@
 .react-responsive-form {
+  .field__feedback {
+    background: #d9534f;
+    color: #fff;
+    margin-top: 0px;
+    padding: 0px 5px;
+  }
+
+  .input {
+      &--error {
+        border-width: 2px;
+        border-style: inset;
+        border-color: initial;
+        border-image: initial;
+      }
+  }
 }

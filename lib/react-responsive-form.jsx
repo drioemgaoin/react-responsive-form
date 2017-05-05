@@ -6,6 +6,8 @@ import Input from './components/input/Input';
 import InputNumber from './components/input-number/InputNumber';
 import InputEmail from './components/input-email/InputEmail';
 
+import './react-responsive-form.scss';
+
 export default class ResponsiveForm extends React.Component {
   firstname: React.SyntheticEvent<HTMLInputElement>;
 
@@ -74,31 +76,31 @@ export default class ResponsiveForm extends React.Component {
         </div>
         <hr />
 
-          <h2>Default Form validation on blur</h2>
-          <Form mode={FormMode.Edit} onFormSubmit={this.onSubmit.bind(this)} validationMode={ValidationMode.OnBlur}>
-              <Input ref={(el) => this.firstname = el}
-                  name='firstname'
-                  label='First Name'
-                  placeholder='First Name'
-                  mode={FormMode.Edit}
-                  isRequired={true} />
-              <InputNumber ref={(el) => this.quantity = el}
-                  name='quantity'
-                  label='Quantity'
-                  placeholder='Quantity'
-                  mode={FormMode.Edit}
-                  isRequired={true} />
-              <InputEmail ref={(el) => this.email = el}
-                  name='email'
-                  label='Email'
-                  placeholder='example@domain.com'
-                  mode={FormMode.Edit}
-                  isRequired={true} />
-          </Form>
-          <div id='default-form'>
-            <pre>{JSON.stringify(this.state.values, (key, value) => value ? value : null, 2)}</pre>
-          </div>
-          <hr />
+        <h2>Default Form validation on blur</h2>
+        <Form mode={FormMode.Edit} onFormSubmit={this.onSubmit.bind(this)} validationMode={ValidationMode.OnBlur}>
+            <Input ref={(el) => this.firstname = el}
+                name='firstname'
+                label='First Name'
+                placeholder='First Name'
+                mode={FormMode.Edit}
+                isRequired={true} />
+            <InputNumber ref={(el) => this.quantity = el}
+                name='quantity'
+                label='Quantity'
+                placeholder='Quantity'
+                mode={FormMode.Edit}
+                isRequired={true} />
+            <InputEmail ref={(el) => this.email = el}
+                name='email'
+                label='Email'
+                placeholder='example@domain.com'
+                mode={FormMode.Edit}
+                isRequired={true} />
+        </Form>
+        <div id='default-form'>
+          <pre>{JSON.stringify(this.state.values, (key, value) => value ? value : null, 2)}</pre>
+        </div>
+        <hr />
 
         <h2>Default Form ReadOnly</h2>
         <Form mode={FormMode.View}>
@@ -124,6 +126,32 @@ export default class ResponsiveForm extends React.Component {
                 isRequired={true}
                 value='custom@domain.com' />
         </Form>
+        <hr />
+
+        <h2>Custom Form validation on submit</h2>
+        <Form className='react-responsive-form' mode={FormMode.Edit} onFormSubmit={this.onSubmit.bind(this)}>
+            <Input ref={(el) => this.firstname = el}
+                name='firstname'
+                label='First Name'
+                placeholder='First Name'
+                mode={FormMode.Edit}
+                isRequired={true} />
+            <InputNumber ref={(el) => this.quantity = el}
+                name='quantity'
+                label='Quantity'
+                placeholder='Quantity'
+                mode={FormMode.Edit}
+                isRequired={true} />
+            <InputEmail ref={(el) => this.email = el}
+                name='email'
+                label='Email'
+                placeholder='example@domain.com'
+                mode={FormMode.Edit}
+                isRequired={true} />
+        </Form>
+        <div id='default-form'>
+          <pre>{JSON.stringify(this.state.values, (key, value) => value ? value : null, 2)}</pre>
+        </div>
       </div>
     );
   }

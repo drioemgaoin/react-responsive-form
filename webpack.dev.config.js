@@ -33,6 +33,9 @@ module.exports = {
 
     require.resolve('./config/polyfills'),
 
+    // Font awesome
+
+
     // Our application
     paths.appIndexJs
   ],
@@ -69,8 +72,6 @@ module.exports = {
     loaders: [
       {
         test: /\.scss$/,
-        include: paths.appSrc,
-        exclude: paths.appNodeModules,
         loader: combineLoaders([
           {
             loader: 'style-loader'
