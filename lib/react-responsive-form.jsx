@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {Form, Input, InputEmail, InputNumber, FormMode, ValidationMode} from './index';
+import {Form, Input, InputEmail, InputNumber, Textarea, FormMode, ValidationMode} from './index';
 
 import './react-responsive-form.scss';
 
@@ -37,6 +37,10 @@ export default class ResponsiveForm extends React.Component {
                 label='Email'
                 placeholder='example@domain.com'
                 isRequired={true} />
+            <Textarea ref={(el) => this.note = el}
+                name='note'
+                label='Note'
+                placeholder='Note' />
         </Form>
         <div id='default-form'>
           <pre>{JSON.stringify(this.state.values, (key, value) => value ? value : null, 2)}</pre>
@@ -60,6 +64,10 @@ export default class ResponsiveForm extends React.Component {
                 label='Email'
                 placeholder='example@domain.com'
                 isRequired={true} />
+            <Textarea ref={(el) => this.note = el}
+                name='note'
+                label='Note'
+                placeholder='Note' />
         </Form>
         <div id='default-form'>
           <pre>{JSON.stringify(this.state.values, (key, value) => value ? value : null, 2)}</pre>
@@ -83,6 +91,10 @@ export default class ResponsiveForm extends React.Component {
                 label='Email'
                 placeholder='example@domain.com'
                 isRequired={true} />
+            <Textarea ref={(el) => this.note = el}
+                name='note'
+                label='Note'
+                placeholder='Note' />
         </Form>
         <div id='default-form'>
           <pre>{JSON.stringify(this.state.values, (key, value) => value ? value : null, 2)}</pre>
@@ -109,6 +121,11 @@ export default class ResponsiveForm extends React.Component {
                 placeholder='example@domain.com'
                 isRequired={true}
                 value='custom@domain.com' />
+            <Textarea ref={(el) => this.note = el}
+                name='note'
+                label='Note'
+                placeholder='Note'
+                value='It is a note\nA multi-line one' />
         </Form>
         <hr />
 
@@ -129,6 +146,10 @@ export default class ResponsiveForm extends React.Component {
                 label='Email'
                 placeholder='example@domain.com'
                 isRequired={true} />
+            <Textarea ref={(el) => this.note = el}
+                name='note'
+                label='Note'
+                placeholder='Note' />
         </Form>
         <div id='default-form'>
           <pre>{JSON.stringify(this.state.values, (key, value) => value ? value : null, 2)}</pre>
