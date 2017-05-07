@@ -38,12 +38,14 @@ export default class FieldComponent extends React.Component {
 
     render() {
       return (
-        <div className={bem('field', { required: this.props.mode === FormMode.Edit && this.props.isRequired })}>
-            <label htmlFor={this.name} className={bem('field', 'label', { error: this.hasValidationMessages() })}>
+        <div className={bem('form-field', { required: this.props.mode === FormMode.Edit && this.props.isRequired })}>
+            <label htmlFor={this.name} className={bem('form-field', 'label', { error: this.hasValidationMessages() })}>
                 {this.props.label}
             </label>
-            {this.props.mode === FormMode.Edit ? this.renderEditMode('field') : this.renderViewMode('field')}
-            {this.hasValidationMessages() ? this.renderValidationGlyphicon() : null }
+            <div className={bem('form-field', 'value')}>
+              {this.props.mode === FormMode.Edit ? this.renderEditMode('field') : this.renderViewMode('field')}
+              {this.hasValidationMessages() ? this.renderValidationGlyphicon() : null }
+            </div>
             {this.hasValidationMessages() ? this.renderValidationMessages() : null }
         </div>
       );
@@ -71,14 +73,13 @@ export default class FieldComponent extends React.Component {
 
     renderValidationGlyphicon() {
       return (
-            <span className={bem('field', 'glyphicon')}>
-            </span>
-        );
+          <span className={bem('form-field', 'glyphicon')}></span>
+      );
     }
 
     renderValidationMessages() {
       return (
-            <div className={bem('field', 'feedback')}>
+            <div className={bem('form-field', 'feedback')}>
                 {this.state.validationMessages.map((message: string) => {
                     return <span key={this.state.validationMessages.indexOf(message)}>{message}</span>;
                 })}

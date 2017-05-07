@@ -15,6 +15,8 @@ export default class Form extends React.Component {
 
   onSubmit(e: React.SyntheticEvent<HTMLFormElement>) {
     e.preventDefault();
+
+    this.onSaveButtonClick();
   }
 
   renderComponents() {
@@ -37,7 +39,7 @@ export default class Form extends React.Component {
                             this.renderedComponents[c.props.name] = el;
                         }
 
-                        return c.ref(el);
+                        return c.ref ? c.ref(el) : undefined;
                     }
                 }
             )
@@ -61,19 +63,11 @@ export default class Form extends React.Component {
       };
       const saveButtonProps = this.prepareButtonProps(
           defaultSaveButtonProps,
-            assign(this.props.saveButtonProps, {
-                onClick: (e: React.SyntheticEvent<HTMLButtonElement>) => {
-                    if (this.props.saveButtonProps && this.props.saveButtonProps.onClick) {
-                        this.props.saveButtonProps.onClick(e);
-                    }
-
-                    this.onSaveButtonClick();
-                }
-            })
+          this.props.saveButtonProps
       );
 
       return (
-          <button {...saveButtonProps}>Save</button>
+          <button type='submit' {...saveButtonProps}>Save</button>
       );
   }
 
@@ -116,26 +110,22 @@ export default class Form extends React.Component {
 
   onSaveButtonClick() {
     const formValues = this.getFormValues();
+    let isValid = true;
 
     forEach(this.renderedComponents, (component, fieldName) => {
-        component.setValidationMessages([]);
-
-        if (component.validate) {
-            component.setValidationMessages(component.validate(formValues[fieldName]));
-        }
+        const errors = component.validate(formValues[fieldName]);
+        isValid = isValid && errors.length === 0;
+        component.setValidationMessages(errors);
     });
 
     if (this.props.validate) {
         forEach(this.props.validate(formValues), (errors, fieldName) => {
             const currentErrors = this.renderedComponents[fieldName].getValidationMessages();
+            isValid = isValid && currentErrors.length === 0;
             this.renderedComponents[fieldName].setValidationMessage(currentErrors.concat(errors));
         });
     }
-
-    const isValid = every(this.renderedComponents, (component, fieldName) => component.isValid());
     if (isValid) {
-        console.log(formValues);
-
         if (this.props.onFormSubmit) {
             this.props.onFormSubmit(formValues);
         }

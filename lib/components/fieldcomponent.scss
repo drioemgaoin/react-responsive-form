@@ -1,5 +1,9 @@
-.field {
+.form-field {
   position: relative;
+
+  &:not(:first-child) {
+    margin-top: 5px;
+  }
 
   &--required > label:after {
     margin-left: 3px;
@@ -7,32 +11,29 @@
     color: #d9534f;
   }
 
-  &__label {
+  &__value {
     position: relative;
-    display: inline-block;
-    width: 100px;
-  }
-
-  &__input {
-    display: inline-block;
-    width: 150px;
   }
 
   &__feedback {
-    margin: 5px 0px 10px 100px;
+    margin: 5px 0px 10px 0px;
     color: #d9534f;
   }
 
   &__glyphicon {
     font-family: 'FontAwesome';
     position: absolute;
-    top: 0;
-    right: 3;
+    top: 50%;
+    right: 3px;
     z-index: 2;
     display: block;
     text-align: center;
     pointer-events: none;
     color: #d9534f;
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
 
     &:after {
         content: '\f00d';
