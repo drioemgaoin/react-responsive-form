@@ -24,7 +24,7 @@ export default class Textarea extends FieldComponent {
       return (
         <textarea className={className}
               ref={(el) => { this.element = el; }}
-              value={this.state.value || ''}
+              value={this.state.value ? this.state.value.replace('\\n', '\n') : ''}
               name={this.name}
               placeholder={this.props.placeholder}
               onChange={this.onChangeBound}

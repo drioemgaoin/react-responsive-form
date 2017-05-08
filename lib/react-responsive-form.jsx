@@ -42,7 +42,8 @@ export default class ResponsiveForm extends React.Component {
                 label='Note'
                 placeholder='Note' />
             <ListGroup name='service'
-                label='Services'>
+                label='Services'
+                isRequired={true}>
                 <ListItem name='service-1' value='0'>
                     Service 1
                 </ListItem>
@@ -78,7 +79,8 @@ export default class ResponsiveForm extends React.Component {
                 label='Note'
                 placeholder='Note' />
             <ListGroup name='service'
-                label='Services'>
+                label='Services'
+                isRequired={true}>
                 <ListItem name='service-1' value='0'>
                     Service 1
                 </ListItem>
@@ -114,7 +116,8 @@ export default class ResponsiveForm extends React.Component {
                 label='Note'
                 placeholder='Note' />
             <ListGroup name='service'
-                label='Services'>
+                label='Services'
+                isRequired={true}>
                 <ListItem name='service-1' value='0'>
                     Service 1
                 </ListItem>
@@ -152,6 +155,7 @@ export default class ResponsiveForm extends React.Component {
                 name='note'
                 label='Note'
                 placeholder='Note'
+                isRequired={true}
                 value='It is a note\nA multi-line one' />
                 <ListGroup name='service'
                     label='Services'
@@ -190,6 +194,7 @@ export default class ResponsiveForm extends React.Component {
                 name='note'
                 label='Note'
                 placeholder='Note'
+                isRequired={true}
                 value='It is a note\nA multi-line one' />
                 <ListGroup name='service'
                     label='Services'
@@ -226,7 +231,8 @@ export default class ResponsiveForm extends React.Component {
                 label='Note'
                 placeholder='Note' />
             <ListGroup name='service'
-                label='Services'>
+                label='Services'
+                isRequired={true}>
                 <ListItem name='service-1' value='0'>
                     Service 1
                 </ListItem>
