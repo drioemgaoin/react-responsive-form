@@ -10,6 +10,10 @@ import './list-group.scss';
 export default class ListGroup extends FieldComponent {
   onClickBound = this.onClick.bind(this);
 
+  renderValidationGlyphicon() {
+    return null;
+  }
+
   renderEditMode(baseClassName: string) {
       this.renderedComponents = {};
 
