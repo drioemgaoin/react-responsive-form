@@ -10,11 +10,6 @@ import './list-group.scss';
 export default class ListGroup extends FieldComponent {
   onClickBound = this.onClick.bind(this);
 
-  getValue() {
-    const selectedItem = find(this.renderedComponents, (component, fieldName) => component.isSelected());
-    return selectedItem ? selectedItem.getValue() : undefined;
-  }
-
   renderEditMode(baseClassName: string) {
       this.renderedComponents = {};
 
@@ -66,8 +61,12 @@ export default class ListGroup extends FieldComponent {
           }
       })
 
+      const enteredValue = item.getValue();
+
+      this.setState({ value: enteredValue });
+
       if (this.props.onChange) {
-          this.props.onChange(item.getValue());
+          this.props.onChange(enteredValue);
       }
   }
 }
