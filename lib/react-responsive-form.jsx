@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {Form, Input, InputEmail, InputNumber, Textarea, FormMode, ValidationMode} from './index';
+import {Form, Input, InputEmail, InputNumber, Textarea, FormMode, ValidationMode, ListGroup, ListItem} from './index';
 
 import './react-responsive-form.scss';
 
@@ -41,6 +41,15 @@ export default class ResponsiveForm extends React.Component {
                 name='note'
                 label='Note'
                 placeholder='Note' />
+            <ListGroup name='service'
+                label='Services'>
+                <ListItem name='service-1' value='0'>
+                    Service 1
+                </ListItem>
+                <ListItem name='service-2' value='1'>
+                    Service 2
+                </ListItem>
+            </ListGroup>
         </Form>
         <div id='default-form'>
           <pre>{JSON.stringify(this.state.values, (key, value) => value ? value : null, 2)}</pre>
@@ -68,6 +77,15 @@ export default class ResponsiveForm extends React.Component {
                 name='note'
                 label='Note'
                 placeholder='Note' />
+            <ListGroup name='service'
+                label='Services'>
+                <ListItem name='service-1' value='0'>
+                    Service 1
+                </ListItem>
+                <ListItem name='service-2' value='1'>
+                    Service 2
+                </ListItem>
+            </ListGroup>
         </Form>
         <div id='default-form'>
           <pre>{JSON.stringify(this.state.values, (key, value) => value ? value : null, 2)}</pre>
@@ -95,6 +113,15 @@ export default class ResponsiveForm extends React.Component {
                 name='note'
                 label='Note'
                 placeholder='Note' />
+            <ListGroup name='service'
+                label='Services'>
+                <ListItem name='service-1' value='0'>
+                    Service 1
+                </ListItem>
+                <ListItem name='service-2' value='1'>
+                    Service 2
+                </ListItem>
+            </ListGroup>
         </Form>
         <div id='default-form'>
           <pre>{JSON.stringify(this.state.values, (key, value) => value ? value : null, 2)}</pre>
@@ -126,6 +153,16 @@ export default class ResponsiveForm extends React.Component {
                 label='Note'
                 placeholder='Note'
                 value='It is a note\nA multi-line one' />
+                <ListGroup name='service'
+                    label='Services'
+                    value='1'>
+                <ListItem name='service-1' value='0'>
+                    Service 1
+                </ListItem>
+                <ListItem name='service-2' value='1'>
+                    Service 2
+                </ListItem>
+            </ListGroup>
         </Form>
         <hr />
 
@@ -150,6 +187,15 @@ export default class ResponsiveForm extends React.Component {
                 name='note'
                 label='Note'
                 placeholder='Note' />
+            <ListGroup name='service'
+                label='Services'>
+                <ListItem name='service-1' value='0'>
+                    Service 1
+                </ListItem>
+                <ListItem name='service-2' value='1'>
+                    Service 2
+                </ListItem>
+            </ListGroup>
         </Form>
         <div id='default-form'>
           <pre>{JSON.stringify(this.state.values, (key, value) => value ? value : null, 2)}</pre>

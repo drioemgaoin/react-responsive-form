@@ -28,7 +28,7 @@ export default class Form extends React.Component {
             c.type,
             assign(
                 {
-                    key: c.props.name,
+                    key: c.props.name
                 },
                 c.props,
                 {
