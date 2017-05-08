@@ -10,7 +10,7 @@ export default class ListItem extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = { selected: false };
+    this.state = { selected: props.selected };
   }
 
   getValue() {
