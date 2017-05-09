@@ -25,7 +25,7 @@ export default class Form extends React.Component {
 
     const components = React.Children.toArray(this.props.children);
     return recursivelyMapChildren(components, (c) => {
-        if (c.type.prototype instanceof FieldComponent) {
+        if (c.type.prototype instanceof FieldComponent && c.props.name) {
             return {
                 mode: c.props.mode !== undefined ? c.props.mode : this.props.mode,
                 validationMode: c.props.validationMode !== undefined ? c.props.validationMode : this.props.validationMode,

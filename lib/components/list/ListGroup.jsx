@@ -3,7 +3,9 @@ import bem from 'bem-classname';
 import classnames from 'classnames';
 import { find, forEach } from 'lodash';
 
+import ListItem from './ListItem';
 import FieldComponent from '../FieldComponent';
+import { recursivelyMapChildren } from '../util';
 
 import './list-group.scss';
 
@@ -26,23 +28,23 @@ export default class ListGroup extends FieldComponent {
       return (
         <ul className={className}>
             {
-                components.map(c => {
-                    return React.createElement(c.type,
-                        {
-                            key: c.props.name,
-                            selected: c.props.value && this.props.value === c.props.value,
-                            onClick: this.onClickBound,
-                            ...c.props,
-                            ref: (el) => {
-                                if (el) {
-                                    this.renderedComponents[c.props.name] = el;
-                                }
+              recursivelyMapChildren(components, (c) => {
+                  if (c.type === ListItem) {
+                    return {
+                      selected: c.props.value && this.props.value === c.props.value,
+                      onClick: this.onClickBound,
+                      ref: (el) => {
+                          if (el) {
+                              this.renderedComponents[c.props.value] = el;
+                          }
 
-                                return c.ref ? c.ref(el) : undefined;
-                            }
-                        },
-                        c.props.children);
-                })
+                          return c.ref ? c.ref(el) : undefined;
+                      }
+                    };
+                  }
+
+                  return {};
+              })
             }
         </ul>
       );
@@ -60,7 +62,7 @@ export default class ListGroup extends FieldComponent {
 
   onClick(item: any) {
       forEach(this.renderedComponents, (component, fieldName) => {
-          if (component.props.name !== item.props.name) {
+          if (component.getValue() !== item.getValue()) {
               component.unselect();
           }
       })

@@ -76,7 +76,8 @@
   "dependencies": {
     "babel-runtime": "~5.8.20",
     "lodash": "^4.17.4",
-    "promise": "7.1.1"
+    "promise": "7.1.1",
+    "react-bootstrap": "0.31.0"
   },
   "peerDependencies": {
     "react": ">=0.14.0",

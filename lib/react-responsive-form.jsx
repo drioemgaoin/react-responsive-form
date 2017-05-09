@@ -1,6 +1,7 @@
 import React from 'react';
 
 import {Form, Input, InputEmail, InputNumber, Textarea, FormMode, ValidationMode, ListGroup, ListItem} from './index';
+import {Accordion, Panel} from 'react-bootstrap';
 
 import './react-responsive-form.scss';
 
@@ -44,12 +45,24 @@ export default class ResponsiveForm extends React.Component {
             <ListGroup name='service'
                 label='Services'
                 isRequired={true}>
-                <ListItem name='service-1' value='0'>
-                    Service 1
-                </ListItem>
-                <ListItem name='service-2' value='1'>
-                    Service 2
-                </ListItem>
+              <Accordion>
+                <Panel header='Category 1' eventKey='1'>
+                    <ListItem value='0'>
+                        Service 1
+                    </ListItem>
+                    <ListItem value='1'>
+                        Service 2
+                    </ListItem>
+                </Panel>
+                <Panel header='Category 2' eventKey='2'>
+                    <ListItem value='2'>
+                        Service 1
+                    </ListItem>
+                    <ListItem value='3'>
+                        Service 2
+                    </ListItem>
+                </Panel>
+              </Accordion>
             </ListGroup>
         </Form>
         <div id='default-form'>
@@ -81,12 +94,24 @@ export default class ResponsiveForm extends React.Component {
             <ListGroup name='service'
                 label='Services'
                 isRequired={true}>
-                <ListItem name='service-1' value='0'>
-                    Service 1
-                </ListItem>
-                <ListItem name='service-2' value='1'>
-                    Service 2
-                </ListItem>
+              <Accordion>
+                <Panel header='Category 1' eventKey='1'>
+                    <ListItem value='0'>
+                        Service 1
+                    </ListItem>
+                    <ListItem value='1'>
+                        Service 2
+                    </ListItem>
+                </Panel>
+                <Panel header='Category 2' eventKey='2'>
+                    <ListItem value='2'>
+                        Service 1
+                    </ListItem>
+                    <ListItem value='3'>
+                        Service 2
+                    </ListItem>
+                </Panel>
+              </Accordion>
             </ListGroup>
         </Form>
         <div id='default-form'>
@@ -118,12 +143,24 @@ export default class ResponsiveForm extends React.Component {
             <ListGroup name='service'
                 label='Services'
                 isRequired={true}>
-                <ListItem name='service-1' value='0'>
-                    Service 1
-                </ListItem>
-                <ListItem name='service-2' value='1'>
-                    Service 2
-                </ListItem>
+              <Accordion>
+                <Panel header='Category 1' eventKey='1'>
+                    <ListItem value='0'>
+                        Service 1
+                    </ListItem>
+                    <ListItem value='1'>
+                        Service 2
+                    </ListItem>
+                </Panel>
+                <Panel header='Category 2' eventKey='2'>
+                    <ListItem value='2'>
+                        Service 1
+                    </ListItem>
+                    <ListItem value='3'>
+                        Service 2
+                    </ListItem>
+                </Panel>
+              </Accordion>
             </ListGroup>
         </Form>
         <div id='default-form'>
@@ -160,13 +197,25 @@ export default class ResponsiveForm extends React.Component {
             <ListGroup name='service'
                 label='Services'
                 isRequired={true}
-                value='1'>
-                <ListItem name='service-1' value='0'>
-                    Service 1
-                </ListItem>
-                <ListItem name='service-2' value='1'>
-                    Service 2
-                </ListItem>
+                value='2'>
+              <Accordion>
+                <Panel header='Category 1' eventKey='1'>
+                    <ListItem value='0'>
+                        Service 1
+                    </ListItem>
+                    <ListItem value='1'>
+                        Service 2
+                    </ListItem>
+                </Panel>
+                <Panel header='Category 2' eventKey='2'>
+                    <ListItem value='2'>
+                        Service 1
+                    </ListItem>
+                    <ListItem value='3'>
+                        Service 2
+                    </ListItem>
+                </Panel>
+              </Accordion>
             </ListGroup>
         </Form>
         <hr />
@@ -197,15 +246,27 @@ export default class ResponsiveForm extends React.Component {
                 placeholder='Note'
                 isRequired={true}
                 value='It is a note\nA multi-line one' />
-                <ListGroup name='service'
-                    label='Services'
-                    value='1'>
-                <ListItem name='service-1' value='0'>
-                    Service 1
-                </ListItem>
-                <ListItem name='service-2' value='1'>
-                    Service 2
-                </ListItem>
+            <ListGroup name='service'
+                label='Services'
+                isRequired={true}>
+              <Accordion>
+                <Panel header='Category 1' eventKey='1'>
+                    <ListItem value='0'>
+                        Service 1
+                    </ListItem>
+                    <ListItem value='1'>
+                        Service 2
+                    </ListItem>
+                </Panel>
+                <Panel header='Category 2' eventKey='2'>
+                    <ListItem value='2'>
+                        Service 1
+                    </ListItem>
+                    <ListItem value='3'>
+                        Service 2
+                    </ListItem>
+                </Panel>
+              </Accordion>
             </ListGroup>
         </Form>
         <hr />
@@ -234,12 +295,24 @@ export default class ResponsiveForm extends React.Component {
             <ListGroup name='service'
                 label='Services'
                 isRequired={true}>
-                <ListItem name='service-1' value='0'>
-                    Service 1
-                </ListItem>
-                <ListItem name='service-2' value='1'>
-                    Service 2
-                </ListItem>
+              <Accordion>
+                <Panel header='Category 1' eventKey='1'>
+                    <ListItem value='0'>
+                        Service 1
+                    </ListItem>
+                    <ListItem value='1'>
+                        Service 2
+                    </ListItem>
+                </Panel>
+                <Panel header='Category 2' eventKey='2'>
+                    <ListItem value='2'>
+                        Service 1
+                    </ListItem>
+                    <ListItem value='3'>
+                        Service 2
+                    </ListItem>
+                </Panel>
+              </Accordion>
             </ListGroup>
         </Form>
         <div id='default-form'>

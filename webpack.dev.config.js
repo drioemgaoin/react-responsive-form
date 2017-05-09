@@ -33,6 +33,9 @@ module.exports = {
 
     require.resolve('./config/polyfills'),
 
+    require.resolve('./static/bootstrap/css/bootstrap.css'),
+
+
     // Our application
     paths.appIndexJs
   ],
@@ -68,7 +71,7 @@ module.exports = {
   module: {
     loaders: [
       {
-        test: /\.scss$/,
+        test: /(\.scss)|(\.css)$/,
         loader: combineLoaders([
           {
             loader: 'style-loader'

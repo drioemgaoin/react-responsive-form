@@ -2,19 +2,15 @@ import React from 'react';
 import bem from 'bem-classname';
 import classnames from 'classnames';
 
+import FieldComponent from '../FieldComponent';
+
 import './list-item.scss';
 
-export default class ListItem extends React.Component {
+export default class ListItem extends FieldComponent {
   onClickBound = this.onClick.bind(this);
 
   constructor(props) {
-    super(props);
-
-    this.state = { selected: props.selected };
-  }
-
-  getValue() {
-      return this.props.value;
+    super(props, { selected: props.selected });
   }
 
   getLabel() {

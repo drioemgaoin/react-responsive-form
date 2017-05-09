@@ -9,15 +9,15 @@ import '../../node_modules/font-awesome/scss/font-awesome.scss';
 import './fieldcomponent.scss';
 
 export default class FieldComponent extends React.Component {
-    constructor(props) {
+    constructor(props, state) {
       super(props);
 
       this.name = replace(props.label, /\W+/g, '');
 
-      this.state = {
+      this.state = Object.assign({
         validationMessages: [],
         value: this.props.value
-      };
+      }, state ? state : {});
     }
 
     componentDidUpdate(prevProps: any, prevState: any, prevContext: any) {
