@@ -42,7 +42,7 @@ export default class ResponsiveForm extends React.Component {
                 label='Note'
                 placeholder='Note' />
             <ListGroup name='service'
-                label='Services'
+                label='Category 1'
                 isRequired={true}>
                 <ListItem name='service-1' value='0'>
                     Service 1
