@@ -56,10 +56,10 @@ export default class ResponsiveForm extends React.Component {
                 </Panel>
                 <Panel header='Category 2' eventKey='2'>
                     <ListItem value='2'>
-                        Service 1
+                        Service 3
                     </ListItem>
                     <ListItem value='3'>
-                        Service 2
+                        Service 4
                     </ListItem>
                 </Panel>
               </Accordion>
@@ -105,10 +105,10 @@ export default class ResponsiveForm extends React.Component {
                 </Panel>
                 <Panel header='Category 2' eventKey='2'>
                     <ListItem value='2'>
-                        Service 1
+                        Service 3
                     </ListItem>
                     <ListItem value='3'>
-                        Service 2
+                        Service 4
                     </ListItem>
                 </Panel>
               </Accordion>
@@ -154,10 +154,10 @@ export default class ResponsiveForm extends React.Component {
                 </Panel>
                 <Panel header='Category 2' eventKey='2'>
                     <ListItem value='2'>
-                        Service 1
+                        Service 3
                     </ListItem>
                     <ListItem value='3'>
-                        Service 2
+                        Service 4
                     </ListItem>
                 </Panel>
               </Accordion>
@@ -209,10 +209,10 @@ export default class ResponsiveForm extends React.Component {
                 </Panel>
                 <Panel header='Category 2' eventKey='2'>
                     <ListItem value='2'>
-                        Service 1
+                        Service 3
                     </ListItem>
                     <ListItem value='3'>
-                        Service 2
+                        Service 4
                     </ListItem>
                 </Panel>
               </Accordion>
@@ -248,7 +248,8 @@ export default class ResponsiveForm extends React.Component {
                 value='It is a note\nA multi-line one' />
             <ListGroup name='service'
                 label='Services'
-                isRequired={true}>
+                isRequired={true}
+                value='2'>
               <Accordion>
                 <Panel header='Category 1' eventKey='1'>
                     <ListItem value='0'>
@@ -260,10 +261,10 @@ export default class ResponsiveForm extends React.Component {
                 </Panel>
                 <Panel header='Category 2' eventKey='2'>
                     <ListItem value='2'>
-                        Service 1
+                        Service 3
                     </ListItem>
                     <ListItem value='3'>
-                        Service 2
+                        Service 4
                     </ListItem>
                 </Panel>
               </Accordion>

@@ -1,3 +1,5 @@
+DONT'T USE IT UNTIL VERSON 1.0.0!!
+
 # react responsive form
 
 Get the AMD module located at `react-responsive-form.js` and include it in your project.

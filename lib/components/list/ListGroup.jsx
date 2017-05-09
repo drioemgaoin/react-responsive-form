@@ -5,7 +5,7 @@ import { find, forEach } from 'lodash';
 
 import ListItem from './ListItem';
 import FieldComponent from '../FieldComponent';
-import { recursivelyMapChildren } from '../util';
+import { recursivelyMapChildren, getChildren } from '../util';
 
 import './list-group.scss';
 
@@ -31,8 +31,9 @@ export default class ListGroup extends FieldComponent {
               recursivelyMapChildren(components, (c) => {
                   if (c.type === ListItem) {
                     return {
-                      selected: c.props.value && this.props.value === c.props.value,
+                      selected: this.props.value && this.props.value === c.props.value,
                       onClick: this.onClickBound,
+                      ...c.props,
                       ref: (el) => {
                           if (el) {
                               this.renderedComponents[c.props.value] = el;
@@ -51,7 +52,7 @@ export default class ListGroup extends FieldComponent {
   }
 
   renderViewMode(baseClassName: string) {
-      const components = React.Children.toArray(this.props.children);
+      const components = getChildren(React.Children.toArray(this.props.children), ListItem);
       const component = find(components, (item, fieldName) => item.props.value === this.props.value);
       return (
           <div className={bem(baseClassName, 'list-group') + ' ' + bem('list-group', ['view'])}>
