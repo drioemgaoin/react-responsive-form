@@ -30,7 +30,7 @@ export default class ListGroup extends FieldComponent {
                     return React.createElement(c.type,
                         {
                             key: c.props.name,
-                            selected: this.props.value === c.props.value,
+                            selected: c.props.value && this.props.value === c.props.value,
                             onClick: this.onClickBound,
                             ...c.props,
                             ref: (el) => {
