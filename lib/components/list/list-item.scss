@@ -1,12 +1,20 @@
 .list-item {
     width: 100%;
 
-    &:hover {
-        cursor: pointer;
-        background: #DCDCDC;
+    &__edit {
+        &:hover {
+            cursor: pointer;
+            background: #DCDCDC;
+        }
+
+        &--selected {
+            background: #DCDCDC;
+        }
     }
 
-    &--selected {
-        background: #DCDCDC;
+    &__view:hover {
+        cursor: default;
     }
+
+
 }

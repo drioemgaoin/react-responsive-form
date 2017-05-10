@@ -39,9 +39,10 @@ export default class ListItem extends FieldComponent {
     }
   }
 
-  render() {
+  renderEditMode(baseClassName: string) {
+      console.log('EDIT');
       const className = classnames(
-          'list-item ' + bem('list-item', [this.state.selected ? 'selected' : '']),
+          bem(baseClassName , 'list-item') + ' ' + bem('list-item', 'edit', [this.state.selected ? 'selected' : '']),
           this.props.className
       );
       return (
@@ -50,6 +51,18 @@ export default class ListItem extends FieldComponent {
             onClick={this.onClickBound}>
             {this.props.children}
           </li>
+      );
+  }
+
+  renderViewMode(baseClassName: string) {
+      const className = classnames(
+          bem(baseClassName , 'list-item') + ' ' + bem('list-item', 'view', [this.state.selected ? 'selected' : '']),
+          this.props.className
+      );
+      return (
+        <div className={className}>
+            {this.props.children}
+        </div>
       );
   }
 }

@@ -33,6 +33,8 @@ export default class ListGroup extends FieldComponent {
                     return {
                       selected: this.props.value && this.props.value === c.props.value,
                       onClick: this.onClickBound,
+                      mode: c.props.mode !== undefined ? c.props.mode : this.props.mode,
+                      validationMode: c.props.validationMode !== undefined ? c.props.validationMode : this.props.validationMode,
                       ...c.props,
                       ref: (el) => {
                           if (el) {
