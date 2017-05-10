@@ -1,7 +1,6 @@
 import React from 'react';
 import bem from 'bem-classname';
 import classnames from 'classnames';
-import { assign, isEmpty } from 'lodash';
 
 import FieldComponent from '../FieldComponent';
 import {ValidationMode} from '../constants';

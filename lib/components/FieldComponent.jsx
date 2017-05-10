@@ -20,6 +20,12 @@ export default class FieldComponent extends React.Component {
       }, state ? state : {});
     }
 
+    componentWillReceiveProps(nextProps) {
+      if (this.props.value !== nextProps.value) {
+        this.setState({ value: nextProps.value });
+      }
+    }
+
     componentDidUpdate(prevProps: any, prevState: any, prevContext: any) {
       if (this.state.validationMessages === prevState.validationMessages &&
           this.state.validationMessages.length > 0 &&
