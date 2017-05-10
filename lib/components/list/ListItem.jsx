@@ -40,7 +40,6 @@ export default class ListItem extends FieldComponent {
   }
 
   renderEditMode(baseClassName: string) {
-      console.log('EDIT');
       const className = classnames(
           bem(baseClassName , 'list-item') + ' ' + bem('list-item', 'edit', [this.state.selected ? 'selected' : '']),
           this.props.className
