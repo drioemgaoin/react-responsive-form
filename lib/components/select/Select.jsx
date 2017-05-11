@@ -1,18 +1,49 @@
 import React from 'react';
 import bem from 'bem-classname';
 import classnames from 'classnames';
+import { find, isEmpty } from 'lodash';
 
 import FieldComponent from '../FieldComponent';
 import {ValidationMode} from '../constants';
 
-import './input.scss';
+import './select.scss';
 
-export default class Input extends FieldComponent {
+export default class Select extends FieldComponent {
   onChangeBound = this.onChange.bind(this);
   onBlurBound = this.onBlur.bind(this);
 
   constructor(props) {
-    super(props);
+    super(props, {value: props.value ? props.value : props.selectOptionLabel ? undefined : props.options[0].id });
+  }
+
+  isEmpty(value) {
+    return isEmpty(value) || +value === 0;
+  }
+
+  renderItems(): any {
+      let options: any[] = [];
+      if (this.props.selectOptionLabel) {
+        options.push(
+            <option
+                key={0}
+                value={0}
+                label={this.props.selectOptionLabel}>
+                {this.props.selectOptionLabel}
+            </option>
+        );
+      }
+
+      this.props.options.forEach((option) => {
+          options.push(
+              <option
+                  key={option.id}
+                  value={option.id}
+                  label={option.label}>
+                  {option.label}
+              </option>);
+      });
+
+      return options;
   }
 
   renderEditMode(baseClassName: string) {
@@ -21,21 +52,24 @@ export default class Input extends FieldComponent {
           this.props.className
       );
       return (
-        <input className={className}
-              ref={(el) => { this.element = el; }}
-              type='text'
-              value={this.state.value || ''}
-              name={this.name}
-              placeholder={this.props.placeholder}
-              onChange={this.onChangeBound}
-              onBlur={this.onBlurBound} />
+        <select
+            ref={(el) => this.element = el}
+            name={this.props.name}
+            className={className}
+            placeholder={this.props.placeholder}
+            value={this.state.value}
+            onChange={this.onChangeBound}
+            onBlur={this.onBlurBound}>
+            {this.renderItems()}
+        </select>
       );
   }
 
   renderViewMode(baseClassName: string) {
+      const option = find(this.props.options, i => i.id === this.state.value);
       return (
           <div className={bem(baseClassName, 'input') + ' ' + bem('input', ['view'])}>
-              {this.state.value}
+              {option ? option.label : ''}
           </div>
       );
   }

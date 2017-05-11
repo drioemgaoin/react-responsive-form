@@ -65,6 +65,10 @@ export default class FieldComponent extends React.Component {
       return !this.hasValidationMessages();
     }
 
+    isEmpty(value) {
+      return isEmpty(value);
+    }
+
     setValidationMessages(messages: string[]) {
         this.setState({ validationMessages: messages });
     }
@@ -96,7 +100,7 @@ export default class FieldComponent extends React.Component {
     validate(value: string) {
         let errors: Array<string> = [];
 
-        if (this.props.isRequired && isEmpty(value)) {
+        if (this.props.isRequired && this.isEmpty(value)) {
             errors.push(this.props.label + ' is required');
         }
 

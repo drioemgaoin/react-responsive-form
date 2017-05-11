@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {Form, Input, InputEmail, InputNumber, Textarea, FormMode, ValidationMode, ListGroup, ListItem} from './index';
+import {Form, Input, InputEmail, InputNumber, Textarea, FormMode, ValidationMode, ListGroup, ListItem, Select} from './index';
 import {Accordion, Panel} from 'react-bootstrap';
 
 import './react-responsive-form.scss';
@@ -38,6 +38,13 @@ export default class ResponsiveForm extends React.Component {
                 label='Email'
                 placeholder='example@domain.com'
                 isRequired={true} />
+            <Select ref={(el) => this.gender = el}
+                name='gender'
+                label='Gender'
+                placeholder='Gender'
+                isRequired={true}
+                selectOptionLabel='Select Gender'
+                options={[{id: 1, label: 'Male'}, {id: 2, label: 'Female'}]} />
             <Textarea ref={(el) => this.note = el}
                 name='note'
                 label='Note'
@@ -47,18 +54,18 @@ export default class ResponsiveForm extends React.Component {
                 isRequired={true}>
               <Accordion>
                 <Panel header='Category 1' eventKey='1'>
-                    <ListItem value='0'>
+                    <ListItem value={0}>
                         Service 1
                     </ListItem>
-                    <ListItem value='1'>
+                    <ListItem value={1}>
                         Service 2
                     </ListItem>
                 </Panel>
                 <Panel header='Category 2' eventKey='2'>
-                    <ListItem value='2'>
+                    <ListItem value={2}>
                         Service 3
                     </ListItem>
-                    <ListItem value='3'>
+                    <ListItem value={3}>
                         Service 4
                     </ListItem>
                 </Panel>
@@ -87,6 +94,13 @@ export default class ResponsiveForm extends React.Component {
                 label='Email'
                 placeholder='example@domain.com'
                 isRequired={true} />
+            <Select ref={(el) => this.gender = el}
+                name='gender'
+                label='Gender'
+                placeholder='Gender'
+                isRequired={true}
+                selectOptionLabel='Select Gender'
+                options={[{id: 1, label: 'Male'}, {id: 2, label: 'Female'}]} />
             <Textarea ref={(el) => this.note = el}
                 name='note'
                 label='Note'
@@ -96,18 +110,18 @@ export default class ResponsiveForm extends React.Component {
                 isRequired={true}>
               <Accordion>
                 <Panel header='Category 1' eventKey='1'>
-                    <ListItem value='0'>
+                    <ListItem value={0}>
                         Service 1
                     </ListItem>
-                    <ListItem value='1'>
+                    <ListItem value={1}>
                         Service 2
                     </ListItem>
                 </Panel>
                 <Panel header='Category 2' eventKey='2'>
-                    <ListItem value='2'>
+                    <ListItem value={2}>
                         Service 3
                     </ListItem>
-                    <ListItem value='3'>
+                    <ListItem value={3}>
                         Service 4
                     </ListItem>
                 </Panel>
@@ -136,6 +150,13 @@ export default class ResponsiveForm extends React.Component {
                 label='Email'
                 placeholder='example@domain.com'
                 isRequired={true} />
+            <Select ref={(el) => this.gender = el}
+                name='gender'
+                label='Gender'
+                placeholder='Gender'
+                isRequired={true}
+                selectOptionLabel='Select Gender'
+                options={[{id: 1, label: 'Male'}, {id: 2, label: 'Female'}]} />
             <Textarea ref={(el) => this.note = el}
                 name='note'
                 label='Note'
@@ -145,18 +166,18 @@ export default class ResponsiveForm extends React.Component {
                 isRequired={true}>
               <Accordion>
                 <Panel header='Category 1' eventKey='1'>
-                    <ListItem value='0'>
+                    <ListItem value={0}>
                         Service 1
                     </ListItem>
-                    <ListItem value='1'>
+                    <ListItem value={1}>
                         Service 2
                     </ListItem>
                 </Panel>
                 <Panel header='Category 2' eventKey='2'>
-                    <ListItem value='2'>
+                    <ListItem value={2}>
                         Service 3
                     </ListItem>
-                    <ListItem value='3'>
+                    <ListItem value={3}>
                         Service 4
                     </ListItem>
                 </Panel>
@@ -188,6 +209,14 @@ export default class ResponsiveForm extends React.Component {
                 placeholder='example@domain.com'
                 isRequired={true}
                 value='custom@domain.com' />
+            <Select ref={(el) => this.gender = el}
+                name='gender'
+                label='Gender'
+                placeholder='Gender'
+                isRequired={true}
+                selectOptionLabel='Select Gender'
+                options={[{id: 1, label: 'Male'}, {id: 2, label: 'Female'}]}
+                value={2} />
             <Textarea ref={(el) => this.note = el}
                 name='note'
                 label='Note'
@@ -197,21 +226,21 @@ export default class ResponsiveForm extends React.Component {
             <ListGroup name='service'
                 label='Services'
                 isRequired={true}
-                value='2'>
+                value={2}>
               <Accordion>
                 <Panel header='Category 1' eventKey='1'>
-                    <ListItem value='0'>
+                    <ListItem value={0}>
                         Service 1
                     </ListItem>
-                    <ListItem value='1'>
+                    <ListItem value={1}>
                         Service 2
                     </ListItem>
                 </Panel>
                 <Panel header='Category 2' eventKey='2'>
-                    <ListItem value='2'>
+                    <ListItem value={2}>
                         Service 3
                     </ListItem>
-                    <ListItem value='3'>
+                    <ListItem value={3}>
                         Service 4
                     </ListItem>
                 </Panel>
@@ -240,6 +269,14 @@ export default class ResponsiveForm extends React.Component {
                 placeholder='example@domain.com'
                 isRequired={true}
                 value='custom@domain.com' />
+            <Select ref={(el) => this.gender = el}
+                name='gender'
+                label='Gender'
+                placeholder='Gender'
+                isRequired={true}
+                selectOptionLabel='Select Gender'
+                options={[{id: 1, label: 'Male'}, {id: 2, label: 'Female'}]}
+                value={2} />
             <Textarea ref={(el) => this.note = el}
                 name='note'
                 label='Note'
@@ -249,21 +286,21 @@ export default class ResponsiveForm extends React.Component {
             <ListGroup name='service'
                 label='Services'
                 isRequired={true}
-                value='2'>
+                value={2}>
               <Accordion>
                 <Panel header='Category 1' eventKey='1'>
-                    <ListItem value='0'>
+                    <ListItem value={0}>
                         Service 1
                     </ListItem>
-                    <ListItem value='1'>
+                    <ListItem value={1}>
                         Service 2
                     </ListItem>
                 </Panel>
                 <Panel header='Category 2' eventKey='2'>
-                    <ListItem value='2'>
+                    <ListItem value={2}>
                         Service 3
                     </ListItem>
-                    <ListItem value='3'>
+                    <ListItem value={3}>
                         Service 4
                     </ListItem>
                 </Panel>
@@ -289,6 +326,13 @@ export default class ResponsiveForm extends React.Component {
                 label='Email'
                 placeholder='example@domain.com'
                 isRequired={true} />
+            <Select ref={(el) => this.gender = el}
+                name='gender'
+                label='Gender'
+                placeholder='Gender'
+                isRequired={true}
+                selectOptionLabel='Select Gender'
+                options={[{id: 1, label: 'Male'}, {id: 2, label: 'Female'}]} />
             <Textarea ref={(el) => this.note = el}
                 name='note'
                 label='Note'
@@ -298,19 +342,19 @@ export default class ResponsiveForm extends React.Component {
                 isRequired={true}>
               <Accordion>
                 <Panel header='Category 1' eventKey='1'>
-                    <ListItem value='0'>
+                    <ListItem value={0}>
                         Service 1
                     </ListItem>
-                    <ListItem value='1'>
+                    <ListItem value={1}>
                         Service 2
                     </ListItem>
                 </Panel>
                 <Panel header='Category 2' eventKey='2'>
-                    <ListItem value='2'>
-                        Service 1
+                    <ListItem value={2}>
+                        Service 3
                     </ListItem>
-                    <ListItem value='3'>
-                        Service 2
+                    <ListItem value={3}>
+                        Service 4
                     </ListItem>
                 </Panel>
               </Accordion>
