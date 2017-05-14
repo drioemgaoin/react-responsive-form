@@ -17,7 +17,7 @@ export default class Select extends FieldComponent {
   }
 
   isEmpty(value) {
-    return isEmpty(value) || +value === 0;
+    return !value || +value === 0;
   }
 
   renderItems(): any {
@@ -38,8 +38,7 @@ export default class Select extends FieldComponent {
               <option
                   key={option.id}
                   value={option.id}
-                  label={option.label}
-                  selected={this.state.value === option.id}>
+                  label={option.label}>
                   {option.label}
               </option>);
       });
@@ -52,6 +51,7 @@ export default class Select extends FieldComponent {
           bem(baseClassName, 'input') + ' ' + bem('input', ['edit', !this.isValid() ? 'error' : '']),
           this.props.className
       );
+
       return (
         <select
             ref={(el) => this.element = el}
