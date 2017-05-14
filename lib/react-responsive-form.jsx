@@ -256,7 +256,7 @@ export default class ResponsiveForm extends React.Component {
                 label='First Name'
                 placeholder='First Name'
                 isRequired={true}
-                value={this.state.values.firstname} />
+                value='Romain Diegoni' />
             <InputNumber ref={(el) => this.quantity = el}
                 name='quantity'
                 label='Quantity'

@@ -38,7 +38,8 @@ export default class Select extends FieldComponent {
               <option
                   key={option.id}
                   value={option.id}
-                  label={option.label}>
+                  label={option.label}
+                  selected={this.state.value === option.id}>
                   {option.label}
               </option>);
       });
