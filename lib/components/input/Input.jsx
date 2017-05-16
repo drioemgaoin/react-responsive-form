@@ -11,6 +11,11 @@ export default class Input extends FieldComponent {
   onChangeBound = this.onChange.bind(this);
   onBlurBound = this.onBlur.bind(this);
 
+  static defaultProps = {
+    type: 'text',
+    value: ''
+  };
+
   constructor(props) {
     super(props);
   }
@@ -20,11 +25,12 @@ export default class Input extends FieldComponent {
           bem(baseClassName, 'input') + ' ' + bem('input', ['edit', !this.isValid() ? 'error' : '']),
           this.props.className
       );
+
       return (
         <input className={className}
               ref={(el) => { this.element = el; }}
-              type={this.props.type || 'text'}
-              value={this.state.value || ''}
+              type={this.props.type}
+              value={this.state.value}
               name={this.name}
               placeholder={this.props.placeholder}
               onChange={this.onChangeBound}

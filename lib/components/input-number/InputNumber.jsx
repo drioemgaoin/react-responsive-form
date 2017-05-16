@@ -1,7 +1,7 @@
 import React from 'react';
 import bem from 'bem-classname';
 import classnames from 'classnames';
-import { assign, isFinite, isEmpty, trim } from 'lodash';
+import { assign, isFinite, isEmpty, trim, isNaN } from 'lodash';
 
 import validate from './validations';
 import {parse, truncateToDecimalPlaces} from './util';
@@ -43,7 +43,6 @@ export default class InputNumber extends FieldComponent {
                type='number'
                ref={this.name}
                {...this.props}
-               value={isFinite(this.props.value) ? this.props.value : 0.0}
                validate={(value) => validate(value, this.props.maxDecimalPlaces, this.props.min)} />
       );
   }
