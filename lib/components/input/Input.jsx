@@ -23,7 +23,7 @@ export default class Input extends FieldComponent {
       return (
         <input className={className}
               ref={(el) => { this.element = el; }}
-              type='text'
+              type={this.props.type || 'text'}
               value={this.state.value || ''}
               name={this.name}
               placeholder={this.props.placeholder}

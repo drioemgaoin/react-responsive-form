@@ -40,9 +40,10 @@ export default class InputNumber extends FieldComponent {
       const className = classnames('InputNumber', this.props.className);
       return (
         <Input className={className}
+               type='number'
                ref={this.name}
                {...this.props}
-               value={isFinite(this.props.value) ? this.props.value.toString() : ''}
+               value={isFinite(this.props.value) ? this.props.value : 0.0}
                validate={(value) => validate(value, this.props.maxDecimalPlaces, this.props.min)} />
       );
   }

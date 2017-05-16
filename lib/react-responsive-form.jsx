@@ -262,6 +262,7 @@ export default class ResponsiveForm extends React.Component {
                 label='Quantity'
                 placeholder='Quantity'
                 isRequired={true}
+                maxDecimalPlaces={2}
                 value={1000} />
             <InputEmail ref={(el) => this.email = el}
                 name='email'

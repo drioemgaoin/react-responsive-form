@@ -1,7 +1,7 @@
 import React from 'react';
 import bem from 'bem-classname';
 import classnames from 'classnames';
-import { find, isEmpty } from 'lodash';
+import { find } from 'lodash';
 
 import FieldComponent from '../FieldComponent';
 import {ValidationMode} from '../constants';
@@ -13,7 +13,7 @@ export default class Select extends FieldComponent {
   onBlurBound = this.onBlur.bind(this);
 
   constructor(props) {
-    super(props, {value: props.value ? props.value : props.selectOptionLabel ? undefined : props.options[0].id });
+    super(props, { value: props.value });
   }
 
   isEmpty(value) {
@@ -58,7 +58,7 @@ export default class Select extends FieldComponent {
             name={this.props.name}
             className={className}
             placeholder={this.props.placeholder}
-            value={this.state.value}
+            value={this.state.value || 0}
             onChange={this.onChangeBound}
             onBlur={this.onBlurBound}>
             {this.renderItems()}
