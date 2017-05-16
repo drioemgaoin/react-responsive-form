@@ -76,7 +76,7 @@ export default class ListGroup extends FieldComponent {
   onClick(event: any) {
       event.preventDefault();
 
-      const enteredValue = event.target.value;
+      const enteredValue = event.currentTarget.value;
 
       this.setState({ value: enteredValue });
 
