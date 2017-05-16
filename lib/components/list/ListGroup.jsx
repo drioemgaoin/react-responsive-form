@@ -12,6 +12,16 @@ import './list-group.scss';
 export default class ListGroup extends FieldComponent {
   onClickBound = this.onClick.bind(this);
 
+  isEmpty(value) {
+    return !value || +value === 0;
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.state.value !== nextProps.value) {
+      this.setState({ value: nextProps.value });
+    }
+  }
+
   renderValidationGlyphicon() {
     return null;
   }
@@ -31,7 +41,7 @@ export default class ListGroup extends FieldComponent {
               recursivelyMapChildren(components, (c) => {
                   if (c.type === ListItem) {
                     return {
-                      selected: this.props.value && this.props.value === c.props.value,
+                      selectedValue: this.state.value,
                       onClick: this.onClickBound,
                       mode: c.props.mode !== undefined ? c.props.mode : this.props.mode,
                       validationMode: c.props.validationMode !== undefined ? c.props.validationMode : this.props.validationMode,
@@ -63,14 +73,10 @@ export default class ListGroup extends FieldComponent {
       );
   }
 
-  onClick(item: any) {
-      forEach(this.renderedComponents, (component, fieldName) => {
-          if (component.getValue() !== item.getValue()) {
-              component.unselect();
-          }
-      })
+  onClick(event: any) {
+      event.preventDefault();
 
-      const enteredValue = item.getValue();
+      const enteredValue = event.target.value;
 
       this.setState({ value: enteredValue });
 
