@@ -6,6 +6,8 @@ import TimePickerPanel from './TimePickerPanel';
 
 import FieldComponent from '../FieldComponent';
 
+import './time-picker.scss';
+
 export default class TimePicker extends FieldComponent {
   getValue() {
     return this.refs[this.name].getValue();
@@ -30,7 +32,7 @@ export default class TimePicker extends FieldComponent {
                  onFocus={this.onFocus.bind(this)}/>
           {
             this.state.showPanel &&
-            (<TimePickerPanel />)
+            (<TimePickerPanel className={className} />)
           }
         </div>
 
