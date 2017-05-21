@@ -34,7 +34,8 @@ export default class Input extends FieldComponent {
               name={this.name}
               placeholder={this.props.placeholder}
               onChange={this.onChangeBound}
-              onBlur={this.onBlurBound} />
+              onBlur={this.onBlurBound}
+              {...this.props} />
       );
   }
 
