@@ -22,7 +22,7 @@ export default class FieldComponent extends React.Component {
 
     componentWillReceiveProps(nextProps) {
       if (this.state.value !== nextProps.value) {
-        this.setState({ value: nextProps.value });
+        // this.setState({ value: nextProps.value });
       }
     }
 

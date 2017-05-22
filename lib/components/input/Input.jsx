@@ -16,10 +16,6 @@ export default class Input extends FieldComponent {
     value: ''
   };
 
-  constructor(props) {
-    super(props);
-  }
-
   renderEditMode(baseClassName: string) {
       const className = classnames(
           bem(baseClassName, 'input') + ' ' + bem('input', ['edit', !this.isValid() ? 'error' : '']),
@@ -27,15 +23,17 @@ export default class Input extends FieldComponent {
       );
 
       return (
-        <input className={className}
-              ref={(el) => { this.element = el; }}
-              type={this.props.type}
-              value={this.state.value}
-              name={this.name}
-              placeholder={this.props.placeholder}
-              onChange={this.onChangeBound}
-              onBlur={this.onBlurBound}
-              {...this.props} />
+        <div>
+          {
+            React.createElement('input', {
+              ...this.props,
+              onChange: this.onChangeBound,
+              onBlur: this.onBlurBound,
+              value: this.state.value
+            })
+          }
+        </div>
+
       );
   }
 

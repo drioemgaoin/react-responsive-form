@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {Form, Input, InputEmail, InputNumber, Textarea, FormMode, ValidationMode, ListGroup, ListItem, Select, TimePicker} from './index';
+import {Form, Input, InputEmail, InputNumber, Textarea, FormMode, ValidationMode, ListGroup, ListItem, Select} from './index';
 import {Accordion, Panel} from 'react-bootstrap';
 
 import './react-responsive-form.scss';
@@ -49,10 +49,12 @@ export default class ResponsiveForm extends React.Component {
                 name='note'
                 label='Note'
                 placeholder='Note' />
-              <TimePicker ref={(el) => this.note = el}
+            <Input ref={(el) => this.note = el}
+                type='time'
                 name='time'
                 label='Time'
-                placeholder='Time' />
+                placeholder='Time'
+                step={300} />
             <ListGroup name='service'
                 label='Services'
                 isRequired={true}>
