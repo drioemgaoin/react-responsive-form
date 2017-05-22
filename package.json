@@ -1,6 +1,6 @@
 {
   "name": "react-responsive-form",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "React responsive form",
   "scripts": {
     "start": "node scripts/start.js",
@@ -76,6 +76,7 @@
   "dependencies": {
     "babel-runtime": "~5.8.20",
     "lodash": "^4.17.4",
+    "moment": "2.18.1",
     "promise": "7.1.1",
     "react-bootstrap": "0.31.0"
   },

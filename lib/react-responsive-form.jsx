@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 
 import {Form, Input, InputEmail, InputNumber, Textarea, FormMode, ValidationMode, ListGroup, ListItem, Select} from './index';
 import {Accordion, Panel} from 'react-bootstrap';
@@ -111,6 +112,12 @@ export default class ResponsiveForm extends React.Component {
                 name='note'
                 label='Note'
                 placeholder='Note' />
+            <Input ref={(el) => this.note = el}
+                type='time'
+                name='time'
+                label='Time'
+                placeholder='Time'
+                step={300} />
             <ListGroup name='service'
                 label='Services'
                 isRequired={true}>
@@ -167,6 +174,12 @@ export default class ResponsiveForm extends React.Component {
                 name='note'
                 label='Note'
                 placeholder='Note' />
+            <Input ref={(el) => this.note = el}
+                type='time'
+                name='time'
+                label='Time'
+                placeholder='Time'
+                step={300} />
             <ListGroup name='service'
                 label='Services'
                 isRequired={true}>
@@ -229,6 +242,13 @@ export default class ResponsiveForm extends React.Component {
                 placeholder='Note'
                 isRequired={true}
                 value='It is a note\nA multi-line one' />
+            <Input ref={(el) => this.note = el}
+                type='time'
+                name='time'
+                label='Time'
+                placeholder='Time'
+                step={300}
+                value={moment().format('HH:mm')} />
             <ListGroup name='service'
                 label='Services'
                 isRequired={true}
@@ -256,7 +276,7 @@ export default class ResponsiveForm extends React.Component {
         <hr />
 
         <h2>Default Form Edit</h2>
-        <Form mode={FormMode.Edit}>
+        <Form mode={FormMode.Edit} onFormSubmit={this.onSubmit.bind(this)}>
             <Input ref={(el) => this.firstname = el}
                 name='firstname'
                 label='First Name'
@@ -290,6 +310,13 @@ export default class ResponsiveForm extends React.Component {
                 placeholder='Note'
                 isRequired={true}
                 value='It is a note\nA multi-line one' />
+            <Input ref={(el) => this.note = el}
+                type='time'
+                name='time'
+                label='Time'
+                placeholder='Time'
+                step={300}
+                value={moment().format('HH:mm')} />
             <ListGroup name='service'
                 label='Services'
                 isRequired={true}
@@ -314,6 +341,9 @@ export default class ResponsiveForm extends React.Component {
               </Accordion>
             </ListGroup>
         </Form>
+        <div id='default-form'>
+          <pre>{JSON.stringify(this.state.values, (key, value) => value ? value : null, 2)}</pre>
+        </div>
         <hr />
 
         <h2>Custom Form validation on submit</h2>
@@ -344,6 +374,12 @@ export default class ResponsiveForm extends React.Component {
                 name='note'
                 label='Note'
                 placeholder='Note' />
+            <Input ref={(el) => this.note = el}
+                type='time'
+                name='time'
+                label='Time'
+                placeholder='Time'
+                step={300} />
             <ListGroup name='service'
                 label='Services'
                 isRequired={true}>
