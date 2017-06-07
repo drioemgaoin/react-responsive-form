@@ -1,6 +1,6 @@
 {
   "name": "react-responsive-form",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "description": "React responsive form",
   "scripts": {
     "start": "node scripts/start.js",
@@ -78,7 +78,8 @@
     "lodash": "^4.17.4",
     "moment": "2.18.1",
     "promise": "7.1.1",
-    "react-bootstrap": "0.31.0"
+    "react-bootstrap": "0.31.0",
+    "react-datepicker": "0.47.0"
   },
   "peerDependencies": {
     "react": ">=0.14.0",

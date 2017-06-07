@@ -1,7 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 
-import {Form, Input, InputEmail, InputNumber, Textarea, FormMode, ValidationMode, ListGroup, ListItem, Select} from './index';
+import {Form, Input, InputEmail, InputDate, InputNumber, Textarea, FormMode, ValidationMode, ListGroup, ListItem, Select} from './index';
 import {Accordion, Panel} from 'react-bootstrap';
 
 import './react-responsive-form.scss';
@@ -55,7 +55,13 @@ export default class ResponsiveForm extends React.Component {
                 name='time'
                 label='Time'
                 placeholder='Time'
+                isRequired={true}
                 step={300} />
+            <InputDate ref={(el) => this.startDate = el}
+                name='startDate'
+                label='Start Date'
+                placeholder='Start Date'
+                isRequired={true} />
             <ListGroup name='service'
                 label='Services'
                 isRequired={true}>
@@ -117,7 +123,13 @@ export default class ResponsiveForm extends React.Component {
                 name='time'
                 label='Time'
                 placeholder='Time'
+                isRequired={true}
                 step={300} />
+            <InputDate ref={(el) => this.startDate = el}
+                name='startDate'
+                label='Start Date'
+                placeholder='Start Date'
+                isRequired={true} />
             <ListGroup name='service'
                 label='Services'
                 isRequired={true}>
@@ -179,7 +191,13 @@ export default class ResponsiveForm extends React.Component {
                 name='time'
                 label='Time'
                 placeholder='Time'
+                isRequired={true}
                 step={300} />
+            <InputDate ref={(el) => this.startDate = el}
+                name='startDate'
+                label='Start Date'
+                placeholder='Start Date'
+                isRequired={true} />
             <ListGroup name='service'
                 label='Services'
                 isRequired={true}>
@@ -214,25 +232,21 @@ export default class ResponsiveForm extends React.Component {
                 name='firstname'
                 label='First Name'
                 placeholder='First Name'
-                isRequired={true}
                 value='Romain Diegoni' />
             <InputNumber ref={(el) => this.quantity = el}
                 name='quantity'
                 label='Quantity'
                 placeholder='Quantity'
-                isRequired={true}
                 value={1000} />
             <InputEmail ref={(el) => this.email = el}
                 name='email'
                 label='Email'
                 placeholder='example@domain.com'
-                isRequired={true}
                 value='custom@domain.com' />
             <Select ref={(el) => this.gender = el}
                 name='gender'
                 label='Gender'
                 placeholder='Gender'
-                isRequired={true}
                 selectOptionLabel='Select Gender'
                 options={[{id: 1, label: 'Male'}, {id: 2, label: 'Female'}]}
                 value={2} />
@@ -240,7 +254,6 @@ export default class ResponsiveForm extends React.Component {
                 name='note'
                 label='Note'
                 placeholder='Note'
-                isRequired={true}
                 value='It is a note\nA multi-line one' />
             <Input ref={(el) => this.note = el}
                 type='time'
@@ -249,9 +262,13 @@ export default class ResponsiveForm extends React.Component {
                 placeholder='Time'
                 step={300}
                 value={moment().format('HH:mm')} />
+            <InputDate ref={(el) => this.startDate = el}
+                name='startDate'
+                label='Start Date'
+                placeholder='Start Date'
+                value={moment()} />
             <ListGroup name='service'
                 label='Services'
-                isRequired={true}
                 value={2}>
               <Accordion>
                 <Panel header='Category 1' eventKey='1'>
@@ -316,7 +333,14 @@ export default class ResponsiveForm extends React.Component {
                 label='Time'
                 placeholder='Time'
                 step={300}
+                isRequired={true}
                 value={moment().format('HH:mm')} />
+            <InputDate ref={(el) => this.startDate = el}
+                name='startDate'
+                label='Start Date'
+                placeholder='Start Date'
+                isRequired={true}
+                value={moment()} />
             <ListGroup name='service'
                 label='Services'
                 isRequired={true}
