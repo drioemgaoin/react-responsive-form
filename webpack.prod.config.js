@@ -90,9 +90,7 @@ module.exports = {
 
       loaders: [
         {
-          test: /\.less$/,
-          include: paths.appSrc,
-          exclude: paths.appNodeModules,
+          test: /(\.scss)|(\.css)$/,
           loader: combineLoaders([
             {
               loader: 'style-loader'
@@ -101,7 +99,7 @@ module.exports = {
               loader: 'css-loader'
             },
             {
-              loader: 'less-loader'
+              loader: 'sass-loader'
             }
           ])
         },
