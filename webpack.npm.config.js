@@ -9,6 +9,7 @@ const getClientEnvironment = require('./config/env');
 const combineLoaders = require('webpack-combine-loaders');
 const fs = require('fs');
 const path = require('path');
+const nodeExternals = require('webpack-node-externals');
 
 // Webpack uses `publicPath` to determine where the app is being served from.
 // It requires a trailing slash, or the file assets will get an incorrect path.
@@ -136,10 +137,13 @@ module.exports = {
         commonjs: 'react-dom',
         amd: 'react-dom'
       }
-    }
+    },
+    nodeExternals()
   ],
 
   plugins: [
     new ExtractTextPlugin("react-responsive-form.css")
-  ]
+  ],
+
+  target: 'node'
 };

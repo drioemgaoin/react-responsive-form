@@ -42,16 +42,10 @@ export default class InputDate extends FieldComponent {
     );
 
     return (
-      <div>
-      {
-        React.createElement(DatePicker, {
-          ...this.props,
-          selected: this.state.startDate,
-          onChange: this.onChangeBound,
-          onBlur: (date) => this.props.validationMode === ValidationMode.OnBlur ? this.onBlur(date) : undefined
-        })
-      }
-      </div>
+      <DatePicker {...this.props}
+        selected={this.state.startDate}
+        onChange={this.onChangeBound}
+        onBlur={(date) => this.props.validationMode === ValidationMode.OnBlur ? this.onBlur(date) : undefined} />
     )
   }
 
