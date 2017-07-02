@@ -16,10 +16,6 @@ export default class InputDate extends FieldComponent {
     dateFormat: 'DD/MM/YYYY'
   };
 
-  constructor(props) {
-    super(props, { startDate: props.value });
-  }
-
   getValue() {
     return this.state.value ? this.state.value.format(this.props.dateFormat) : undefined;
   }
@@ -43,14 +39,14 @@ export default class InputDate extends FieldComponent {
 
     return (
       <DatePicker {...this.props}
-        selected={this.state.startDate}
+        selected={this.state.value}
         onChange={this.onChangeBound}
         onBlur={(date) => this.props.validationMode === ValidationMode.OnBlur ? this.onBlur(date) : undefined} />
     )
   }
 
   onChange(date) {
-    this.setState({ startDate: date });
+    this.setState({ value: date });
 
     this.change(
         date,

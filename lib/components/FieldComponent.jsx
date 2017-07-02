@@ -49,9 +49,14 @@ export default class FieldComponent extends React.Component {
     render() {
       return (
         <div className={bem('form-field', { required: this.props.mode === FormMode.Edit && this.props.isRequired })}>
-            <label htmlFor={this.name} className={bem('form-field', 'label', { error: this.hasValidationMessages() })}>
-                {this.props.label}
-            </label>
+            {
+                this.props.label &&
+                (
+                    <label htmlFor={this.name} className={bem('form-field', 'label', { error: this.hasValidationMessages() })}>
+                        {this.props.label}
+                    </label>
+                )
+            }
             <div className={bem('form-field', 'value')}>
               {this.props.mode === FormMode.Edit ? this.renderEditMode('field') : this.renderViewMode('field')}
               {this.hasValidationMessages() ? this.renderValidationGlyphicon() : null }

@@ -78,7 +78,12 @@ export default class ListGroup extends FieldComponent {
 
       const enteredValue = event.currentTarget.value;
 
-      this.setState({ value: enteredValue });
+      let value = enteredValue;
+      if (Array.isArray(this.state.value)) {
+          value = this.state.value.concat([enteredValue]);
+      }
+
+      this.setState({ value });
 
       if (this.props.onChange) {
           this.props.onChange(enteredValue);
