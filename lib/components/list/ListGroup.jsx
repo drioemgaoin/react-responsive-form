@@ -1,7 +1,7 @@
 import React from 'react';
 import bem from 'bem-classname';
 import classnames from 'classnames';
-import { find, forEach } from 'lodash';
+import { find, forEach, includes, filter } from 'lodash';
 
 import ListItem from './ListItem';
 import FieldComponent from '../FieldComponent';
@@ -80,13 +80,17 @@ export default class ListGroup extends FieldComponent {
 
       let value = enteredValue;
       if (Array.isArray(this.state.value)) {
-          value = this.state.value.concat([enteredValue]);
+          if (includes(this.state.value, enteredValue)) {
+            value = filter(this.state.value, x => x !== enteredValue);
+          } else {
+            value = this.state.value.concat([enteredValue])
+          }
       }
 
       this.setState({ value });
 
       if (this.props.onChange) {
-          this.props.onChange(enteredValue);
+          this.props.onChange(value);
       }
   }
 }
