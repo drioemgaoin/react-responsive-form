@@ -17,7 +17,7 @@ export default class InputDate extends FieldComponent {
   };
 
   getValue() {
-    return this.state.value ? this.state.value.format(this.props.dateFormat) : undefined;
+    return this.state.value ? this.state.value : undefined;
   }
 
   renderViewMode(baseClassName: string) {
