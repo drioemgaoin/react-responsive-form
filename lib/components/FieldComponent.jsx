@@ -111,7 +111,6 @@ export default class FieldComponent extends React.Component {
     }
 
     validate(value) {
-      console.log('VALIDATION')
         let errors = [];
 
         if (this.props.isRequired && this.isEmpty(value)) {

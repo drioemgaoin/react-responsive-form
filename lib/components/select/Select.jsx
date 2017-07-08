@@ -4,7 +4,7 @@ import classnames from 'classnames';
 import { find } from 'lodash';
 
 import FieldComponent from '../FieldComponent';
-import {ValidationMode} from '../constants';
+import {FormMode, ValidationMode} from '../constants';
 
 import './select.scss';
 
@@ -13,7 +13,7 @@ export default class Select extends FieldComponent {
   onBlurBound = this.onBlur.bind(this);
 
   constructor(props) {
-    super(props, { value: props.value });
+    super(props, { value: props.value || 0 });
   }
 
   isEmpty(value) {
@@ -22,7 +22,7 @@ export default class Select extends FieldComponent {
 
   renderItems() {
       let options = [];
-      if (this.props.selectOptionLabel) {
+      if (this.props.mode === FormMode.Edit && this.props.selectOptionLabel) {
         options.push(
             <option
                 key={0}
@@ -58,7 +58,7 @@ export default class Select extends FieldComponent {
                 ref={(el) => this.element = el}
                 name={this.props.name}
                 placeholder={this.props.placeholder}
-                value={this.state.value || 0}
+                value={this.state.value}
                 onChange={this.onChangeBound}
                 onBlur={this.onBlurBound}>
                 {this.renderItems()}
