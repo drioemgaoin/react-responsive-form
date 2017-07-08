@@ -20,8 +20,8 @@ export default class Select extends FieldComponent {
     return !value || +value === 0;
   }
 
-  renderItems(): any {
-      let options: any[] = [];
+  renderItems() {
+      let options = [];
       if (this.props.selectOptionLabel) {
         options.push(
             <option
@@ -46,50 +46,51 @@ export default class Select extends FieldComponent {
       return options;
   }
 
-  renderEditMode(baseClassName: string) {
+  renderEditMode(baseClassName) {
       const className = classnames(
-          bem(baseClassName, 'input') + ' ' + bem('input', ['edit', !this.isValid() ? 'error' : '']),
+          bem(baseClassName, 'select') + ' ' + bem('select', ['edit', !this.isValid() ? 'error' : '']),
           this.props.className
       );
 
       return (
-        <select
-            ref={(el) => this.element = el}
-            name={this.props.name}
-            className={className}
-            placeholder={this.props.placeholder}
-            value={this.state.value || 0}
-            onChange={this.onChangeBound}
-            onBlur={this.onBlurBound}>
-            {this.renderItems()}
-        </select>
+        <div className={className}> 
+            <select
+                ref={(el) => this.element = el}
+                name={this.props.name}
+                placeholder={this.props.placeholder}
+                value={this.state.value || 0}
+                onChange={this.onChangeBound}
+                onBlur={this.onBlurBound}>
+                {this.renderItems()}
+            </select>
+        </div>
       );
   }
 
-  renderViewMode(baseClassName: string) {
+  renderViewMode(baseClassName) {
       const option = find(this.props.options, i => i.id === this.state.value);
       return (
-          <div className={bem(baseClassName, 'input') + ' ' + bem('input', ['view'])}>
+          <div className={bem(baseClassName, 'select') + ' ' + bem('select', ['view'])}>
               {option ? option.label : ''}
           </div>
       );
   }
 
-  onChange(event: React.SyntheticEvent<HTMLInputElement>) {
+  onChange(event) {
     this.change(
         event.currentTarget.value,
         this.props.validationMode === ValidationMode.OnChange
     );
   }
 
-  onBlur(event: React.SyntheticEvent<HTMLInputElement>) {
+  onBlur(event) {
       this.change(
           event.currentTarget.value,
           this.props.validationMode === ValidationMode.OnBlur
       );
   }
 
-  change(enteredValue: string, mustValidate: boolean) {
+  change(enteredValue, mustValidate) {
       event.preventDefault();
       this.setValidationMessages([]);
 

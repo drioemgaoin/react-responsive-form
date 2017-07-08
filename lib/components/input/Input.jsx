@@ -16,28 +16,30 @@ export default class Input extends FieldComponent {
     value: ''
   };
 
-  renderEditMode(baseClassName: string) {
+  renderEditMode(baseClassName) {
       const className = classnames(
           bem(baseClassName, 'input') + ' ' + bem('input', ['edit', !this.isValid() ? 'error' : '']),
           this.props.className
       );
 
       return (
-        <div>
+        <div className={className}>
           {
             React.createElement('input', {
-              ...this.props,
-              onChange: this.onChangeBound,
-              onBlur: this.onBlurBound,
-              value: this.state.value
+                type: this.props.type,
+                name: this.props.name,
+                ref: this.props.ref,
+                placeholder: this.props.placeholder,
+                onChange: this.onChangeBound,
+                onBlur: this.onBlurBound,
+                value: this.state.value
             })
           }
         </div>
-
       );
   }
 
-  renderViewMode(baseClassName: string) {
+  renderViewMode(baseClassName) {
       return (
           <div className={bem(baseClassName, 'input') + ' ' + bem('input', ['view'])}>
               {this.state.value}
@@ -45,22 +47,23 @@ export default class Input extends FieldComponent {
       );
   }
 
-  onChange(event: React.SyntheticEvent<HTMLInputElement>) {
+  onChange(event) {
     this.change(
         event.currentTarget.value,
         this.props.validationMode === ValidationMode.OnChange
     );
   }
 
-  onBlur(event: React.SyntheticEvent<HTMLInputElement>) {
+  onBlur(event) {
       this.change(
           event.currentTarget.value,
           this.props.validationMode === ValidationMode.OnBlur
       );
   }
 
-  change(enteredValue: string, mustValidate: boolean) {
+  change(enteredValue, mustValidate) {
       event.preventDefault();
+
       this.setValidationMessages([]);
 
       let errors = this.validate(enteredValue);

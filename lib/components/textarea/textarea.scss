@@ -1,4 +1,15 @@
 .textarea {
-  resize: none;
   width: 100%;
+  
+  textarea {
+    width: inherit;
+    resize: none;
+    width: 100%;
+  }
+
+  &--error {
+    textarea {
+      border: 1px solid #d9534f;
+    }
+  }
 }

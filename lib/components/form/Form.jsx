@@ -14,7 +14,7 @@ export default class Form extends React.Component {
     super(props);
   }
 
-  onSubmit(e: React.SyntheticEvent<HTMLFormElement>) {
+  onSubmit(e) {
     e.preventDefault();
 
     this.onSaveButtonClick();
@@ -29,7 +29,7 @@ export default class Form extends React.Component {
             return {
                 mode: c.props.mode !== undefined ? c.props.mode : this.props.mode,
                 validationMode: c.props.validationMode !== undefined ? c.props.validationMode : this.props.validationMode,
-                ref: (el: FieldComponent) => {
+                ref: (el) => {
                     if (el) {
                         if (!this.renderedComponents[c.props.name]) {
                             this.renderedComponents[c.props.name] = [];
@@ -95,7 +95,7 @@ export default class Form extends React.Component {
       );
   }
 
-  prepareButtonProps(defaultProps: any, customProps: any) {
+  prepareButtonProps(defaultProps, customProps) {
     const customClassName = customProps ? customProps.className : {};
     return assign(
         {},
@@ -115,7 +115,7 @@ export default class Form extends React.Component {
     forEach(this.renderedComponents, (items, fieldName) => {
         forEach(items, (component) => {
             const errors = component.validate(formValues[fieldName]);
-            isValid = isValid && errors.length === 0;
+            isValid = isValid && errors && errors.length === 0;
             component.setValidationMessages(errors);
         });
     });
@@ -138,7 +138,7 @@ export default class Form extends React.Component {
   }
 
   getFormValues() {
-    let values: Map = {};
+    let values = {};
     forEach(this.renderedComponents, (items, fieldName) => {
         forEach(items, (component) => {
             const value = component.getValue();

@@ -1,12 +1,12 @@
-.select {
+.input-email {
   width: 100%;
   
-  select {
+  input {
     width: inherit;
   }
 
   &--error {
-    select {
+    input {
       border: 1px solid #d9534f;
     }
   }

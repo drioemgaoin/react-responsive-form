@@ -21,12 +21,12 @@ export default class ListGroup extends FieldComponent {
       this.setState({ value: nextProps.value });
     }
   }
-
+  
   renderValidationGlyphicon() {
     return null;
   }
 
-  renderEditMode(baseClassName: string) {
+  renderEditMode(baseClassName) {
       this.renderedComponents = {};
 
       const className = classnames(
@@ -63,7 +63,7 @@ export default class ListGroup extends FieldComponent {
       );
   }
 
-  renderViewMode(baseClassName: string) {
+  renderViewMode(baseClassName) {
       const components = getChildren(React.Children.toArray(this.props.children), ListItem);
       const component = find(components, (item, fieldName) => item.props.value === this.props.value);
       return (
@@ -73,7 +73,7 @@ export default class ListGroup extends FieldComponent {
       );
   }
 
-  onClick(event: any) {
+  onClick(event) {
       event.preventDefault();
 
       const enteredValue = event.currentTarget.value;

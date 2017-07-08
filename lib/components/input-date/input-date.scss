@@ -1,12 +1,13 @@
-.select {
+.input-date {
   width: 100%;
   
-  select {
+  .react-datepicker__input-container,
+  input {
     width: inherit;
   }
 
   &--error {
-    select {
+    input {
       border: 1px solid #d9534f;
     }
   }

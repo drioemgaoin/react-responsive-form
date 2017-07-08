@@ -7,6 +7,7 @@ import FieldComponent from '../FieldComponent';
 import {ValidationMode} from '../constants';
 
 import 'react-datepicker/dist/react-datepicker.css';
+import './input-date.scss';
 
 export default class InputDate extends FieldComponent {
   onChangeBound = this.onChange.bind(this);
@@ -17,10 +18,10 @@ export default class InputDate extends FieldComponent {
   };
 
   getValue() {
-    return this.state.value ? this.state.value.format(this.props.dateFormat) : undefined;
+    return this.state.value ? this.state.value : undefined;
   }
 
-  renderViewMode(baseClassName: string) {
+  renderViewMode(baseClassName) {
     const className = classnames(
         bem(baseClassName, 'input-date') + ' ' + bem('input-date', ['view']),
         this.props.className
@@ -31,17 +32,19 @@ export default class InputDate extends FieldComponent {
     );
   }
 
-  renderEditMode(baseClassName: string) {
+  renderEditMode(baseClassName) {
     const className = classnames(
         bem(baseClassName, 'input-date') + ' ' + bem('input-date', ['edit', !this.isValid() ? 'error' : '']),
         this.props.className
     );
 
     return (
-      <DatePicker {...this.props}
-        selected={this.state.value}
-        onChange={this.onChangeBound}
-        onBlur={(date) => this.props.validationMode === ValidationMode.OnBlur ? this.onBlur(date) : undefined} />
+      <div className={className}>
+        <DatePicker {...this.props}
+          selected={this.state.value}
+          onChange={this.onChangeBound}
+          onBlur={(date) => this.props.validationMode === ValidationMode.OnBlur ? this.onBlur(date) : undefined} />
+      </div>
     )
   }
 

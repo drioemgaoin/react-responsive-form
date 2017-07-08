@@ -7,8 +7,6 @@ import {Accordion, Panel} from 'react-bootstrap';
 import './react-responsive-form.scss';
 
 export default class ResponsiveForm extends React.Component {
-  firstname: React.SyntheticEvent<HTMLInputElement>;
-
   constructor(props) {
     super(props);
 
@@ -49,7 +47,8 @@ export default class ResponsiveForm extends React.Component {
             <Textarea ref={(el) => this.note = el}
                 name='note'
                 label='Note'
-                placeholder='Note' />
+                placeholder='Note'
+                isRequired={true} />
             <Input ref={(el) => this.note = el}
                 type='time'
                 name='time'
