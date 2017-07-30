@@ -27,6 +27,7 @@ export default class Input extends FieldComponent {
           {
             React.createElement('input', {
               ...this.props,
+              className: className,
               onChange: this.onChangeBound,
               onBlur: this.onBlurBound,
               value: this.state.value

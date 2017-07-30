@@ -7,6 +7,7 @@ import FieldComponent from '../FieldComponent';
 import {ValidationMode} from '../constants';
 
 import 'react-datepicker/dist/react-datepicker.css';
+import './input-date.scss';
 
 export default class InputDate extends FieldComponent {
   onChangeBound = this.onChange.bind(this);
@@ -39,6 +40,7 @@ export default class InputDate extends FieldComponent {
 
     return (
       <DatePicker {...this.props}
+        className={className}
         selected={this.state.value}
         onChange={this.onChangeBound}
         onBlur={(date) => this.props.validationMode === ValidationMode.OnBlur ? this.onBlur(date) : undefined} />

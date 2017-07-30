@@ -1,0 +1,11 @@
+.react-datepicker__input-container {
+    width: 100%;
+}
+
+.input-date {
+    width: 100%;
+
+    &--error {
+        border: 1px solid #d9534f;
+    }
+}

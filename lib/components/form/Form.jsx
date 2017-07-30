@@ -10,14 +10,20 @@ import { recursivelyMapChildren } from '../util';
 import './form.scss';
 
 export default class Form extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+  onSubmitBound = this.onSubmit.bind(this);
 
-  onSubmit(e: React.SyntheticEvent<HTMLFormElement>) {
-    e.preventDefault();
-
-    this.onSaveButtonClick();
+  componentWillReceiveProps(nextProps) {
+      if (nextProps.messages) {
+          forEach(Object.keys(nextProps.messages), key => {
+              const component = this.renderedComponents[key];
+              if (component) {
+                  if (component.setValidationMessages) {
+                      const messages = Array.isArray(nextProps.messages[key]) ? nextProps.messages[key] : [nextProps.messages[key]];
+                      component.setValidationMessages(messages);
+                  }
+              }
+          });
+      }
   }
 
   renderComponents() {
@@ -31,11 +37,7 @@ export default class Form extends React.Component {
                 validationMode: c.props.validationMode !== undefined ? c.props.validationMode : this.props.validationMode,
                 ref: (el: FieldComponent) => {
                     if (el) {
-                        if (!this.renderedComponents[c.props.name]) {
-                            this.renderedComponents[c.props.name] = [];
-                        }
-
-                        this.renderedComponents[c.props.name].push(el);
+                        this.renderedComponents[c.props.name] = el;
                     }
 
                     return c.ref ? c.ref(el) : undefined;
@@ -108,16 +110,16 @@ export default class Form extends React.Component {
     );
   }
 
-  onSaveButtonClick() {
+  onSubmit(e) {
+    e.preventDefault();
+
     const formValues = this.getFormValues();
     let isValid = true;
 
-    forEach(this.renderedComponents, (items, fieldName) => {
-        forEach(items, (component) => {
-            const errors = component.validate(formValues[fieldName]);
-            isValid = isValid && errors.length === 0;
-            component.setValidationMessages(errors);
-        });
+    forEach(this.renderedComponents, (component) => {
+        const errors = component.validate(formValues[component.name]);
+        isValid = isValid && errors.length === 0;
+        component.setValidationMessages(errors);
     });
 
     if (this.props.validate) {
@@ -125,11 +127,10 @@ export default class Form extends React.Component {
             const currentErrors = this.renderedComponents[fieldName].getValidationMessages();
             isValid = isValid && currentErrors.length === 0;
 
-            forEach(this.renderedComponents[fieldName], (component) => {
-                component.setValidationMessage(currentErrors.concat(errors));
-            });
+            this.renderedComponents[fieldName].setValidationMessage(currentErrors.concat(errors));
         });
     }
+
     if (isValid) {
         if (this.props.onFormSubmit) {
             this.props.onFormSubmit(formValues);
@@ -138,17 +139,16 @@ export default class Form extends React.Component {
   }
 
   getFormValues() {
-    let values: Map = {};
-    forEach(this.renderedComponents, (items, fieldName) => {
-        forEach(items, (component) => {
-            const value = component.getValue();
+    let values = {};
+    
+    forEach(this.renderedComponents, component => {
+        const value = component.getValue();
 
-            if (values[fieldName]) {
-                values[fieldName] = [values[fieldName], value];
-            } else {
-                values[fieldName] = value;
-            }
-        });
+        if (values[component.name]) {
+            values[component.name] = [values[component.name], value];
+        } else {
+            values[component.name] = value;
+        }
     });
 
     return values;
