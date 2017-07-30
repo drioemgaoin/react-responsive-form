@@ -1,6 +1,6 @@
 {
   "name": "react-responsive-form",
-  "version": "0.0.18",
+  "version": "0.0.21",
   "description": "React responsive form",
   "scripts": {
     "start": "node scripts/start.js",
