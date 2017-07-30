@@ -79,18 +79,18 @@ export default class ResponsiveForm extends React.Component {
                         isRequired={true}>
                         <Accordion>
                             <Panel header='Category 1' eventKey='1'>
-                                <ListItem value={0}>
+                                <ListItem value={1}>
                                     Service 1
                                 </ListItem>
-                                <ListItem value={1}>
+                                <ListItem value={2}>
                                     Service 2
                                 </ListItem>
                             </Panel>
                             <Panel header='Category 2' eventKey='2'>
-                                <ListItem value={2}>
+                                <ListItem value={3}>
                                     Service 3
                                 </ListItem>
-                                <ListItem value={3}>
+                                <ListItem value={4}>
                                     Service 4
                                 </ListItem>
                             </Panel>
@@ -147,18 +147,18 @@ export default class ResponsiveForm extends React.Component {
                         isRequired={true}>
                         <Accordion>
                             <Panel header='Category 1' eventKey='1'>
-                                <ListItem value={0}>
+                                <ListItem value={1}>
                                     Service 1
                                 </ListItem>
-                                <ListItem value={1}>
+                                <ListItem value={2}>
                                     Service 2
                                 </ListItem>
                             </Panel>
                             <Panel header='Category 2' eventKey='2'>
-                                <ListItem value={2}>
+                                <ListItem value={3}>
                                     Service 3
                                 </ListItem>
-                                <ListItem value={3}>
+                                <ListItem value={4}>
                                     Service 4
                                 </ListItem>
                             </Panel>
@@ -215,18 +215,18 @@ export default class ResponsiveForm extends React.Component {
                         isRequired={true}>
                         <Accordion>
                             <Panel header='Category 1' eventKey='1'>
-                                <ListItem value={0}>
+                                <ListItem value={1}>
                                     Service 1
                                 </ListItem>
-                                <ListItem value={1}>
+                                <ListItem value={2}>
                                     Service 2
                                 </ListItem>
                             </Panel>
                             <Panel header='Category 2' eventKey='2'>
-                                <ListItem value={2}>
+                                <ListItem value={3}>
                                     Service 3
                                 </ListItem>
-                                <ListItem value={3}>
+                                <ListItem value={4}>
                                     Service 4
                                 </ListItem>
                             </Panel>
@@ -284,18 +284,18 @@ export default class ResponsiveForm extends React.Component {
                         value={2}>
                         <Accordion>
                             <Panel header='Category 1' eventKey='1'>
-                                <ListItem value={0}>
+                                <ListItem value={1}>
                                     Service 1
                                 </ListItem>
-                                <ListItem value={1}>
+                                <ListItem value={2}>
                                     Service 2
                                 </ListItem>
                             </Panel>
                             <Panel header='Category 2' eventKey='2'>
-                                <ListItem value={2}>
+                                <ListItem value={3}>
                                     Service 3
                                 </ListItem>
-                                <ListItem value={3}>
+                                <ListItem value={4}>
                                     Service 4
                                 </ListItem>
                             </Panel>
@@ -359,18 +359,18 @@ export default class ResponsiveForm extends React.Component {
                         value={2}>
                         <Accordion>
                             <Panel header='Category 1' eventKey='1'>
-                                <ListItem value={0}>
+                                <ListItem value={1}>
                                     Service 1
                                 </ListItem>
-                                <ListItem value={1}>
+                                <ListItem value={2}>
                                     Service 2
                                 </ListItem>
                             </Panel>
                             <Panel header='Category 2' eventKey='2'>
-                                <ListItem value={2}>
+                                <ListItem value={3}>
                                     Service 3
                                 </ListItem>
-                                <ListItem value={3}>
+                                <ListItem value={4}>
                                     Service 4
                                 </ListItem>
                             </Panel>
@@ -422,18 +422,18 @@ export default class ResponsiveForm extends React.Component {
                         isRequired={true}>
                         <Accordion>
                             <Panel header='Category 1' eventKey='1'>
-                                <ListItem value={0}>
+                                <ListItem value={1}>
                                     Service 1
                                 </ListItem>
-                                <ListItem value={1}>
+                                <ListItem value={2}>
                                     Service 2
                                 </ListItem>
                             </Panel>
                             <Panel header='Category 2' eventKey='2'>
-                                <ListItem value={2}>
+                                <ListItem value={3}>
                                     Service 3
                                 </ListItem>
-                                <ListItem value={3}>
+                                <ListItem value={4}>
                                     Service 4
                                 </ListItem>
                             </Panel>
@@ -478,18 +478,18 @@ export default class ResponsiveForm extends React.Component {
                         label='Services'>
                         <Accordion>
                             <Panel header='Category 1' eventKey='1'>
-                                <ListItem value={0}>
+                                <ListItem value={1}>
                                     Service 1
                                 </ListItem>
-                                <ListItem value={1}>
+                                <ListItem value={2}>
                                     Service 2
                                 </ListItem>
                             </Panel>
                             <Panel header='Category 2' eventKey='2'>
-                                <ListItem value={2}>
+                                <ListItem value={3}>
                                     Service 3
                                 </ListItem>
-                                <ListItem value={3}>
+                                <ListItem value={4}>
                                     Service 4
                                 </ListItem>
                             </Panel>

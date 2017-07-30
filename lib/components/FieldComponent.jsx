@@ -28,9 +28,13 @@ export default class FieldComponent extends React.Component {
       if (this.state.value !== nextProps.value) {
         this.setState({ value: nextProps.value });
       }
+
+      if (this.state.mode !== nextProps.mode) {
+        this.setState({ mode: nextProps.mode });
+      }
     }
 
-    componentDidUpdate(prevProps: any, prevState: any, prevContext: any) {
+    componentDidUpdate(prevProps, prevState, prevContext) {
       if (this.state.validationMessages === prevState.validationMessages &&
           this.state.validationMessages.length > 0 &&
           !isEqual(this.state.value, prevState.value)) {
@@ -78,7 +82,7 @@ export default class FieldComponent extends React.Component {
       return isEmpty(value);
     }
 
-    setValidationMessages(messages: string[]) {
+    setValidationMessages(messages) {
         this.setState({ validationMessages: messages });
     }
 
@@ -99,17 +103,19 @@ export default class FieldComponent extends React.Component {
     renderValidationMessages() {
       return (
             <div className={bem('form-field', 'feedback')}>
-                {this.state.validationMessages.map((message: string) => {
+                {this.state.validationMessages.map((message) => {
                     return <span key={this.state.validationMessages.indexOf(message)}>{message}</span>;
                 })}
             </div>
         );
     }
 
-    validate(value: string) {
-        let errors: Array<string> = [];
+    validate(value) {
+        let errors = [];
 
+        console.log('START')
         if (this.props.isRequired && this.isEmpty(value)) {
+            console.log('END')
             errors.push(this.props.label + ' is required');
         }
 

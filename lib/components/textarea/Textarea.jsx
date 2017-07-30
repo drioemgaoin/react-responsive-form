@@ -16,23 +16,25 @@ export default class Textarea extends FieldComponent {
     super(props);
   }
 
-  renderEditMode(baseClassName: string) {
+  renderEditMode(baseClassName) {
       const className = classnames(
           bem(baseClassName, 'textarea') + ' ' + bem('textarea', ['edit', !this.isValid() ? 'error' : '']),
           this.props.className
       );
       return (
-        <textarea className={className}
-              ref={(el) => { this.element = el; }}
-              value={this.state.value ? this.state.value.replace('\\n', '\n') : ''}
-              name={this.name}
-              placeholder={this.props.placeholder}
-              onChange={this.onChangeBound}
-              onBlur={this.onBlurBound} />
+        <div className={className}>
+            <textarea 
+                ref={(el) => { this.element = el; }}
+                value={this.state.value ? this.state.value.replace('\\n', '\n') : ''}
+                name={this.name}
+                placeholder={this.props.placeholder}
+                onChange={this.onChangeBound}
+                onBlur={this.onBlurBound} />
+        </div>
       );
   }
 
-  renderViewMode(baseClassName: string) {
+  renderViewMode(baseClassName) {
       return (
           <div className={bem(baseClassName, 'textarea') + ' ' + bem('textarea', ['view'])}>
               {
@@ -43,21 +45,21 @@ export default class Textarea extends FieldComponent {
       );
   }
 
-  onChange(event: React.SyntheticEvent<HTMLInputElement>) {
+  onChange(event) {
     this.change(
         event.currentTarget.value,
         this.props.validationMode === ValidationMode.OnChange
     );
   }
 
-  onBlur(event: React.SyntheticEvent<HTMLInputElement>) {
+  onBlur(event) {
       this.change(
           event.currentTarget.value,
           this.props.validationMode === ValidationMode.OnBlur
       );
   }
 
-  change(enteredValue: string, mustValidate: boolean) {
+  change(enteredValue, mustValidate) {
       event.preventDefault();
       this.setValidationMessages([]);
 

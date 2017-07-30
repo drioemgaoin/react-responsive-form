@@ -21,7 +21,7 @@ export default class InputDate extends FieldComponent {
     return this.state.value ? this.state.value : undefined;
   }
 
-  renderViewMode(baseClassName: string) {
+  renderViewMode(baseClassName) {
     const className = classnames(
         bem(baseClassName, 'input-date') + ' ' + bem('input-date', ['view']),
         this.props.className
@@ -32,7 +32,7 @@ export default class InputDate extends FieldComponent {
     );
   }
 
-  renderEditMode(baseClassName: string) {
+  renderEditMode(baseClassName) {
     const className = classnames(
         bem(baseClassName, 'input-date') + ' ' + bem('input-date', ['edit', !this.isValid() ? 'error' : '']),
         this.props.className

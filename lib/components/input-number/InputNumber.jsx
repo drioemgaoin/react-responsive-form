@@ -13,51 +13,92 @@ import FieldComponent from '../FieldComponent';
 import './input-number.scss';
 
 export default class InputNumber extends FieldComponent {
+  onChangeBound = this.onChange.bind(this);
+  onBlurBound = this.onBlur.bind(this);
+
   static defaultProps = {
     maxDecimalPlaces: 0,
-    min: 0
+    min: 0,
+    value: 0
   };
 
   constructor(props) {
-    super(props);
-
-    this.validateProps(props);
+    super(props, { value: +props.value });
   }
 
-  componentWillReceiveProps(nextProps: any) {
-    this.validateProps(nextProps);
+  isEmpty(value) {
+    return value === 0;
   }
 
-  getValue() {
-    return parse(this.refs[this.name].getValue());
-  }
-
-  setValidationMessages(messages: string[]) {
-    this.refs[this.name].setValidationMessages(messages);
-  }
-
-  render() {
-      const className = classnames('InputNumber', this.props.className);
+  renderViewMode(baseClassName) {
       return (
-        <Input className={className}
-               type='number'
-               ref={this.name}
-               {...this.props}
-               validate={(value) => validate(value, this.props.maxDecimalPlaces, this.props.min)} />
+          <div className={bem(baseClassName, 'input-number') + ' ' + bem('input-number', ['view'])}>
+              {this.state.value}
+          </div>
       );
   }
 
-  validateProps(props: any) {
-    if (isFinite(props.min) && isFinite(props.max) && props.max < props.min) {
-        console.error('Unable to set properties when max < min');
-    }
+  renderEditMode(baseClassName) {
+    const className = classnames(
+          bem(baseClassName, 'input-number') + ' ' + bem('input-number', ['edit', !this.isValid() ? 'error' : '']),
+          this.props.className
+      );
 
-    if (isFinite(props.maxDecimalPlaces) && props.maxDecimalPlaces < 0) {
-        console.error('Unable to set property maxDecimalPlaces with a negative value');
-    }
+      return (
+        <div className={className}>
+          {
+            React.createElement('input', {
+                type: 'number',
+                name: this.props.name,
+                ref: this.props.ref,
+                min: this.props.min,
+                placeholder: this.props.placeholder,
+                onChange: this.onChangeBound,
+                onBlur: this.onBlurBound,
+                value: this.state.value
+            })
+          }
+        </div>
+      );
+  }
 
-    if (isFinite(props.maxDecimalPlaces) && props.maxDecimalPlaces > 15) {
-        console.error('Unable to set property maxDecimalPlaces greater than 15');
-    }
+  onChange(event) {
+    this.change(
+        event.currentTarget.value,
+        this.props.validationMode === ValidationMode.OnChange
+    );
+  }
+
+  onBlur(event) {
+      this.change(
+          event.currentTarget.value,
+          this.props.validationMode === ValidationMode.OnBlur
+      );
+  }
+
+  change(enteredValue, mustValidate) {
+      event.preventDefault();
+
+      this.setValidationMessages([]);
+
+      let errors = this.validate(enteredValue);
+      if (errors.includes(false)) {
+        // Validation returning boolean prevent input
+        // -> Not error message displayed
+        return;
+      }
+
+      if (mustValidate) {
+        errors = errors.filter(error => typeof error !== 'boolean');
+        if (errors.length > 0) {
+            this.setValidationMessages(errors);
+        }
+      }
+
+      this.setState({ value: enteredValue });
+
+      if (errors.length === 0 && this.props.onChange) {
+          this.props.onChange(enteredValue);
+      }
   }
 }
