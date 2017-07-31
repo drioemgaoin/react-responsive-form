@@ -12,20 +12,6 @@ import './form.scss';
 export default class Form extends React.Component {
   onSubmitBound = this.onSubmit.bind(this);
 
-  componentWillReceiveProps(nextProps) {
-      if (nextProps.messages) {
-          forEach(Object.keys(nextProps.messages), key => {
-              const component = this.refs[key];
-              if (component) {
-                  if (component.setValidationMessages) {
-                      const messages = Array.isArray(nextProps.messages[key]) ? nextProps.messages[key] : [nextProps.messages[key]];
-                      component.setValidationMessages(messages);
-                  }
-              }
-          });
-      }
-  }
-
   renderComponents() {
     const components = React.Children.toArray(this.props.children);
     return recursivelyMapChildren(components, (c) => {

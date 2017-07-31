@@ -19,7 +19,7 @@ export default class FieldComponent extends React.Component {
       this.name = replace(props.label, /\W+/g, '');
 
       this.state = Object.assign({
-        validationMessages: [],
+        validationMessages: this.props.messages || [],
         value: this.props.value
       }, state ? state : {});
     }
@@ -31,6 +31,10 @@ export default class FieldComponent extends React.Component {
 
       if (this.state.mode !== nextProps.mode) {
         this.setState({ mode: nextProps.mode });
+      }
+
+      if (this.state.messages !== nextProps.messages) {
+        this.setState({ validationMessages: nextProps.messages });
       }
     }
 
