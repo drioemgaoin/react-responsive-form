@@ -18,6 +18,11 @@
   &__feedback {
     margin: 5px 0px 10px 0px;
     color: #d9534f;
+
+    ul {
+        list-style-type: none;
+        padding: 0px;
+    }
   }
 
   &__glyphicon {

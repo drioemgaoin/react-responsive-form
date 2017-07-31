@@ -103,9 +103,11 @@ export default class FieldComponent extends React.Component {
     renderValidationMessages() {
       return (
             <div className={bem('form-field', 'feedback')}>
+                <ul>
                 {this.state.validationMessages.map((message) => {
-                    return <span key={this.state.validationMessages.indexOf(message)}>{message}</span>;
+                    return <li key={this.state.validationMessages.indexOf(message)}>{message}</li>;
                 })}
+                </ul>
             </div>
         );
     }
