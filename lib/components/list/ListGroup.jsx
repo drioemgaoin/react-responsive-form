@@ -12,8 +12,6 @@ import './list-group.scss';
 export default class ListGroup extends FieldComponent {
   onClickBound = this.onClick.bind(this);
 
-  p
-
   isEmpty(value) {
     return !value || +value === 0;
   }
