@@ -1,7 +1,7 @@
 import React from 'react';
 import bem from 'bem-classname';
 import classnames from 'classnames';
-import { find, forEach, includes, filter } from 'lodash';
+import { find, forEach, includes, filter, isEqual } from 'lodash';
 
 import ListItem from './ListItem';
 import FieldComponent from '../FieldComponent';
@@ -41,7 +41,7 @@ export default class ListGroup extends FieldComponent {
               recursivelyMapChildren(components, (c) => {
                   if (c.type === ListItem) {
                     return {
-                      selectedValue: this.state.value,
+                      isSelected: this.isSelected(c.props.value),
                       onClick: this.onClickBound,
                       mode: c.props.mode !== undefined ? c.props.mode : this.props.mode,
                       validationMode: c.props.validationMode !== undefined ? c.props.validationMode : this.props.validationMode,
@@ -73,15 +73,19 @@ export default class ListGroup extends FieldComponent {
       );
   }
 
-  onClick(event) {
-      event.preventDefault();
+  isSelected(value) {
+      return this.props.multipleChoices
+        ? includes(this.state.value, value)
+        : isEqual(this.state.value, value);
+  }
 
-      const enteredValue = event.currentTarget.value;
-
+  onClick(enteredValue) {
       let value = enteredValue;
-      if (Array.isArray(this.state.value)) {
-          if (includes(this.state.value, value)) {
-            value = filter(this.state.value, x => x !== value);
+
+      if (this.props.multipleChoices) {
+          const existing = find(this.state.value, x => isEqual(x, value));
+          if (existing) {
+            value = filter(this.state.value, x => !isEqual(x, existing));
           } else {
             value = this.state.value.concat([value])
           }
