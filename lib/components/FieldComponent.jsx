@@ -34,7 +34,10 @@ export default class FieldComponent extends React.Component {
       }
 
       if (this.state.messages !== nextProps.messages) {
-        this.setState({ validationMessages: nextProps.messages });
+        const validationMessages = nextProps.messages
+            ? Array.isArray(nextProps.messages) ? nextProps.messages : [nextProps.messages]
+            : [];
+        this.setState({ validationMessages });
       }
     }
 
@@ -87,7 +90,10 @@ export default class FieldComponent extends React.Component {
     }
 
     setValidationMessages(messages) {
-        this.setState({ validationMessages: messages });
+        const validationMessages = messages
+            ? Array.isArray(messages) ? messages : [message]
+            : [];
+        this.setState({ validationMessages });
     }
 
     hasValidationMessages() {
