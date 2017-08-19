@@ -4,6 +4,7 @@ import classnames from 'classnames';
 import {isEqual} from 'lodash';
 
 import FieldComponent from '../FieldComponent';
+import {FormMode} from '../constants';
 
 import './list-item.scss';
 
@@ -23,8 +24,13 @@ export default class ListItem extends React.Component {
     }
 
     render() {
+        const isSelected = this.props.mode === FormMode.Edit && this.props.isSelected;
         const className = classnames(
-            'list-item ' + bem('list-item', 'edit', [this.props.isSelected ? 'selected' : '']),
+            'list-item ' + bem(
+                'list-item',
+                this.props.mode === FormMode.Edit ? 'edit' : 'view',
+                [isSelected ? 'selected' : '']
+            ),
             this.props.className
         );
 
@@ -32,7 +38,7 @@ export default class ListItem extends React.Component {
             <li className={className}
                 name={this.props.name}
                 value={this.props.value}
-                onClick={this.onClickBound}>
+                onClick={this.props.mode === FormMode.Edit ? this.onClickBound : undefined}>
                 {this.props.children}
             </li>
         );

@@ -64,18 +64,18 @@ export default class ListGroup extends FieldComponent {
   }
 
   renderViewMode(baseClassName) {
-      const components = getChildren(React.Children.toArray(this.props.children), ListItem);
-      const component = find(components, (item, fieldName) => item.props.value === this.props.value);
+      let components = getChildren(React.Children.toArray(this.props.children), ListItem);
+      components = filter(components, (item, fieldName) => this.isSelected(item.props.value));
       return (
-          <div className={bem(baseClassName, 'list-group') + ' ' + bem('list-group', ['view'])}>
-              {component}
-          </div>
+          <ul className={bem(baseClassName, 'list-group') + ' ' + bem('list-group', ['view'])}>
+              {components}
+          </ul>
       );
   }
 
   isSelected(value) {
       return this.props.multipleChoices
-        ? includes(this.state.value, value)
+        ? find(this.state.value, x => isEqual(x, value))
         : isEqual(this.state.value, value);
   }
 
